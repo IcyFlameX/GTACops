@@ -15,16 +15,18 @@ public class CopsFeature {
         this.plugin = plugin;
     }
 
+    //Responsible For Spawning Cops for the killer
     public void spawnCops(Player killer, HashMap<Player, ArrayList<PigZombie>> playerCopsMap) {
         CustomCops cops = new CustomCops(this.plugin);
         PigZombie pigZombie = ((PigZombie) killer.getWorld().spawnEntity(killer.getLocation(), EntityType.PIG_ZOMBIE));
         cops.setProperties(pigZombie);
         if (playerCopsMap.containsKey(killer)) {
             playerCopsMap.get(killer).add(pigZombie);
-        }
-        playerCopsMap.put(killer, new ArrayList<PigZombie>(Arrays.asList(pigZombie)));
+        } else
+            playerCopsMap.put(killer, new ArrayList<PigZombie>(Arrays.asList(pigZombie)));
     }
 
+    //Responsible for killing the Cops associated with the player wh dies
     public void killCops(Player dead, HashMap<Player, ArrayList<PigZombie>> playerCopsMap) {
         if (playerCopsMap.containsKey(dead)) {
             for (PigZombie pigZombie : playerCopsMap.get(dead))

@@ -35,6 +35,7 @@ public class KillListener implements Listener {
                     Player killer = (Player) event.getDamager();
                     updateKillWant.updateKill(killer, dead);
                     copsFeature.spawnCops(killer, playerCopsMap);
+                    copsFeature.killCops(dead, playerCopsMap);
                 }
                 if (event.getDamager() instanceof PigZombie) {
                     updateKillWant.resetKillWant(dead);

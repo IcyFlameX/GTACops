@@ -27,7 +27,7 @@ public class UpdateKillWant {
         updateWantLevel(killer);
         //For Dead Player
         resetKillWant(dead);
-        this.plugin.getConfigFileManager().saveStatsFile();
+        plugin.getConfigFileManager().saveStatsFile();
 
     }
 
