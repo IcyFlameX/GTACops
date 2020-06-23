@@ -1,0 +1,9 @@
+main: me.IcyFlameX.GTACops.main.Main
+author: IcyFlameX
+name: GTACops
+version: "2.3"
+api-version: "1.14"
+commands:
+  gcops:
+    description: Shows information regarding GTACops plugin
+    usage: /<command>

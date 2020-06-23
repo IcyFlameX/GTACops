@@ -1,0 +1,30 @@
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+#
+#     _____ _______       _____
+#    / ____|__   __|/\   / ____|
+#   | |  __   | |  /  \ | |     ___  _ __  ___
+#   | | |_ |  | | / /\ \| |    / _ \| '_ \/ __|
+#   | |__| |  | |/ ____ \ |___| (_) | |_) \__ \
+#    \_____|  |_/_/    \_\_____\___/| .__/|___/
+#                                   | |
+#                                   |_|
+#  Version: 2.3
+#  Author: IcyFlameX
+#  Spigot: https://www.spigotmc.org/resources/gtacops.39090/
+#  Discord: https://discordapp.com/invite/XpZ4Dun
+#  Configuration File
+#
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+
+#---------------------------------------------------------#
+#                           MURDERS
+#---------------------------------------------------------#
+
+#Total number of kills required for each player to reach the specific wanted level.
+#Example: To Reach Wanted Level 3, player would require total of 3 kills.
+Kills_Per_WantedLevel:
+   Level1: 1
+   Level2: 2
+   Level3: 3
+   Level4: 4
+   Level5: 5
