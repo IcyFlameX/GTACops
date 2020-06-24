@@ -12,7 +12,7 @@ public final class CommandManager implements CommandExecutor {
 
     private Main plugin;
     private FetchDetails fetchDetails;
-    private final String PREFIX = "&D&L[GTACops] &f&l>> ";
+    private final String PREFIX = "&f&l[&d&lGTACops&f&l]&6 &f&l>> ";
 
     public CommandManager(Main plugin) {
         this.plugin = plugin;
@@ -33,11 +33,15 @@ public final class CommandManager implements CommandExecutor {
                         if ("kills".equalsIgnoreCase(args[0]))
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX +
                                     "&6" + plugin.getConfigFileManager().getMsgConfigFile().getString("Current_Kills") + "&c " +
-                                    fetchDetails.getKillsOfPlayer(player)));
+                                    fetchDetails.getKills(player)));
                         else if ("wantlvl".equalsIgnoreCase(args[0]))
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX +
                                     "&6" + plugin.getConfigFileManager().getMsgConfigFile().getString("Current_Wanted_LvL") + "&c " +
-                                    fetchDetails.getWantLvlOfPlayer(player)));
+                                    fetchDetails.getWantLvlStars(player)));
+                        else if ("topkills".equalsIgnoreCase(args[0]))
+                            new TopStats(plugin).topKillsBoard(player);
+                        else if ("topwant".equalsIgnoreCase(args[0]))
+                            new TopStats(plugin).topWantBoard(player);
                         else if ("reload".equalsIgnoreCase(args[0])) {
                             if (player.hasPermission("GTACops.admin")) {
                                 plugin.getConfigFileManager().reloadConfig();

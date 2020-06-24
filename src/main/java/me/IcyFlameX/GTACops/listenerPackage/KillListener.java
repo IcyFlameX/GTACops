@@ -27,15 +27,21 @@ public class KillListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDeathbyCops(EntityDamageByEntityEvent event) {
+    public void onDamageEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player) {
             Player dead = (Player) event.getEntity();
             if (dead.getHealth() <= event.getDamage()) {
-                if (event.getDamager() instanceof Player) {
+                if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
                     Player killer = (Player) event.getDamager();
+                    copsFeature.killCopsAfterTime(killer, playerCopsMap);
                     updateKillWant.updateKill(killer, dead);
                     copsFeature.spawnCops(killer, playerCopsMap);
+                    copsFeature.killCopsAfterTime(killer, playerCopsMap);
                     copsFeature.killCops(dead, playerCopsMap);
+                }
+                if (event.getDamager() instanceof Player && event.getEntity() instanceof PigZombie) {
+                    Player killer = (Player) event.getDamager();
+                    copsFeature.removeCopsUponDeath(killer, playerCopsMap, (PigZombie) event.getEntity());
                 }
                 if (event.getDamager() instanceof PigZombie) {
                     updateKillWant.resetKillWant(dead);
@@ -45,5 +51,3 @@ public class KillListener implements Listener {
         }
     }
 }
-
-

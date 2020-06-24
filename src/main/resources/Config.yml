@@ -17,6 +17,17 @@
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 
 #---------------------------------------------------------#
+#                         STARS
+#---------------------------------------------------------#
+#This is the place where you can change how the logo/star looks
+#Put the logo you want to display as stars
+Stars_Logo: "✪"
+#Color of Stars for wanted level achieved out of given 5
+Stars_FillColor: "&4"
+#Color of Starts for wanted level not achieved out of 5
+Stars_EmptyColor: "&f"
+
+#---------------------------------------------------------#
 #                           MURDERS
 #---------------------------------------------------------#
 
@@ -28,3 +39,145 @@ Kills_Per_WantedLevel:
    Level3: 3
    Level4: 4
    Level5: 5
+
+#---------------------------------------------------------#
+#                            Cops
+#                        Configuration
+#---------------------------------------------------------#
+
+#**************************#
+#          Name
+#**************************#
+#Sets the name of the Zombie Pigman
+Cops_Name: "&4&lCops"
+
+#**************************#
+#          TotalNumber
+#**************************#
+#Number of Cops to be spawned whenever player reaches a certain wanted level.
+Total_Cops:
+   Level1: 1
+   Level2: 2
+   Level3: 3
+   Level4: 4
+   Level5: 5
+
+#**************************#
+#          Cop's Armor
+#**************************#
+#Link for all the Materials in Minecraft[ MAKE SURE YOU COPY PASTE SAME]
+#https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#Weapon to be given to the Cops at each particular wanted level of the player
+Cops_Weapon:
+   Level1: GOLDEN_SWORD
+   Level2: STONE_SWORD
+   Level3: IRON_SWORD
+   Level4: IRON_SWORD
+   Level5: DIAMOND_SWORD
+
+#Helmet to be given to the Cops at each particular wanted level of the player
+Cops_Helmet:
+   Level1: GOLDEN_HELMET
+   Level2: CHAINMAIL_HELMET
+   Level3: CHAINMAIL_HELMET
+   Level4: IRON_HELMET
+   Level5: DIAMOND_HELMET
+
+#Chestplate to be given to the Cops at each particular wanted level of the player
+Cops_Chestplate:
+   Level1: GOLDEN_CHESTPLATE
+   Level2: CHAINMAIL_CHESTPLATE
+   Level3: IRON_CHESTPLATE
+   Level4: IRON_CHESTPLATE
+   Level5: DIAMOND_CHESTPLATE
+
+#Leggings to be given to the Cops at each particular wanted level of the player
+Cops_Leggings:
+   Level1: GOLDEN_LEGGINGS
+   Level2: IRON_LEGGINGS
+   Level3: CHAINMAIL_LEGGINGS
+   Level4: IRON_LEGGINGS
+   Level5: DIAMOND_LEGGINGS
+
+#Boots to be worn by the Cops
+Cops_Boots:
+   Level1: GOLDEN_BOOTS
+   Level2: CHAINMAIL_BOOTS
+   Level3: IRON_BOOTS
+   Level4: DIAMOND_BOOTS
+   Level5: DIAMOND_BOOTS
+
+#**************************#
+#          CopsHealth
+#**************************#
+#Set the maximum possible health of the cops.
+#Maximum Cops Health cannot go beyond 1024.
+Cops_MaxHealth: 100
+#TotalHealth of each Cop spawned at specific wanted Level.
+#Example : For Wanted Level1, Cops will have health of 20, For Level 3 Cops will have health of 30
+#Note: the health you set for the cops for each wanted level should not
+#Exceed the MaxHealth you have set, or else there will be errors.
+Cops_Health:
+   Level1: 20
+   Level2: 25
+   Level3: 30
+   Level4: 35
+   Level5: 40
+
+#**************************#
+#          CopsSpeed
+#**************************#
+#Give Extra Speed to the cops and set the time for which extra speed will remain.
+#Speed is due to SpeedPotion Effect
+#Given Duration Values are in seconds
+#Example For Players with wanted level 1, cops will have speed potion 1 effect and for 5 seconds.
+#Example2 For Players with wanted level 4, cops will have speed potion 4 effect and for 20 seconds.
+Cops_Speed:
+   Intensity:
+      Level1: 1
+      Level2: 2
+      Level3: 3
+      Level4: 4
+      Level5: 5
+   Duration:
+      Level1: 5
+      Level2: 10
+      Level3: 15
+      Level4: 20
+      Level5: 25
+
+#**************************#
+#       CopsStrength
+#**************************#
+#Give Extra Strength to the cops and set the time for which extra strength will remain.
+#Strength is due to StrengthPotion Effect
+#Given Duration Values are in seconds
+#Example For Players with wanted level 1, cops will have strength potion 1 effect and for 5 seconds.
+#Example2 For Players with wanted level 4, cops will have strength potion 4 effect and for 20 seconds.
+Cops_Strength:
+   Intensity:
+      Level1: 1
+      Level2: 2
+      Level3: 3
+      Level4: 4
+      Level5: 5
+   Duration:
+      Level1: 5
+      Level2: 10
+      Level3: 15
+      Level4: 20
+      Level5: 25
+
+#**************************#
+#       CopsDeathTime
+#**************************#
+#Time after which cops spawned will die.
+#Suppose a cop chases a killer but is unable to kill the player so after certain period of the time
+#The Cop will die and the killer will escape.
+#Given Time Values are in seconds
+Cops_Time:
+   Level1: 2
+   Level2: 3
+   Level3: 4
+   Level4: 5
+   Level5: 6

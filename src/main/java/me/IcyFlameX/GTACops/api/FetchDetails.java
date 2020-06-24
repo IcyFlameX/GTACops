@@ -1,6 +1,7 @@
 package me.IcyFlameX.GTACops.api;
 
 import me.IcyFlameX.GTACops.main.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class FetchDetails {
@@ -11,23 +12,40 @@ public class FetchDetails {
         this.plugin = plugin;
     }
 
-    public int getKillsOfPlayer(Player player) {
+    public int getKills(Player player) {
         String killPath = player.getUniqueId().toString() + "." + player.getName() + ".Kills";
         if (plugin.getConfigFileManager().getStatsFileConfig().contains(killPath))
             return plugin.getConfigFileManager().getStatsFileConfig().getInt(killPath);
         else {
-            this.plugin.getConfigFileManager().getStatsFileConfig().set(killPath, 0);
+            plugin.getConfigFileManager().getStatsFileConfig().set(killPath, 0);
+            plugin.getConfigFileManager().saveStatsFile();
             return 0;
         }
     }
 
-    public int getWantLvlOfPlayer(Player player) {
+    public int getWantLvl(Player player) {
         String wantpath = player.getUniqueId().toString() + "." + player.getName() + ".WantLevel";
         if (plugin.getConfigFileManager().getStatsFileConfig().contains(wantpath))
             return plugin.getConfigFileManager().getStatsFileConfig().getInt(wantpath);
         else {
-            this.plugin.getConfigFileManager().getStatsFileConfig().set(wantpath, 0);
+            plugin.getConfigFileManager().getStatsFileConfig().set(wantpath, 0);
+            plugin.getConfigFileManager().saveStatsFile();
             return 0;
         }
+    }
+
+    public String getWantLvlStars(Player player) {
+        int want = getWantLvl(player);
+        int rem = 5 - want;
+        StringBuilder sb = new StringBuilder(ChatColor.translateAlternateColorCodes('&',
+                plugin.getConfigFileManager().getConfigFileConfig().getString("Stars_FillColor") + ""));
+        while (want-- > 0)
+            sb.append(plugin.getConfigFileManager().getConfigFileConfig().getString("Stars_Logo"));
+        sb.append(ChatColor.translateAlternateColorCodes('&',
+                plugin.getConfigFileManager().getConfigFileConfig().getString("Stars_EmptyColor") + ""));
+        while (rem-- > 0)
+            sb.append(plugin.getConfigFileManager().getConfigFileConfig().getString("Stars_Logo"));
+        return sb.toString();
+
     }
 }

@@ -1,5 +1,6 @@
 package me.IcyFlameX.GTACops.utilities;
 
+import me.IcyFlameX.GTACops.api.FetchDetails;
 import me.IcyFlameX.GTACops.main.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -7,9 +8,11 @@ import org.bukkit.entity.Player;
 public class UpdateKillWant {
 
     private Main plugin;
+    private FetchDetails fetchDetails;
 
     public UpdateKillWant(Main plugin) {
         this.plugin = plugin;
+        fetchDetails = new FetchDetails(this.plugin);
     }
 
     //This function updates the kill Value of a player after he has died.
@@ -24,7 +27,9 @@ public class UpdateKillWant {
             this.plugin.getConfigFileManager().getStatsFileConfig().set(wantpath, 0);
         }
         //Implicitly call the updateWant function
-        updateWantLevel(killer);
+        if (!(fetchDetails.getKills(killer) >
+                plugin.getConfigFileManager().getConfigFileConfig().getInt("Kills_Per_WantedLevel.Level5")))
+            updateWantLevel(killer);
         //For Dead Player
         resetKillWant(dead);
         plugin.getConfigFileManager().saveStatsFile();
@@ -50,9 +55,9 @@ public class UpdateKillWant {
 
     //Reset Player Stats after the player has died
     public void resetKillWant(Player player) {
-        this.plugin.getConfigFileManager().getStatsFileConfig().set(getKillPath(player), 0);
-        this.plugin.getConfigFileManager().getStatsFileConfig().set(getWantPath(player), 0);
-        this.plugin.getConfigFileManager().saveStatsFile();
+        plugin.getConfigFileManager().getStatsFileConfig().set(getKillPath(player), 0);
+        plugin.getConfigFileManager().getStatsFileConfig().set(getWantPath(player), 0);
+        plugin.getConfigFileManager().saveStatsFile();
     }
 
     //Returns the path in Stats.yml file for player total kills
