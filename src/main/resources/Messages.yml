@@ -19,7 +19,29 @@
 Current_Kills: "&6Your current kills so far :&c"
 Current_Wanted_LvL: "&6Your Wanted Level is Now :&c "
 
+
+Not_Online: "&6Player not Online!"
+Track_Player_Name: "&dTracking Player &6: "
+Track_Player_Dist: "&dDistance &6: "
+
 GTACops_Help_comm: "&cType &d/gcops help &cfor info in GTACops plugin"
 GTACops_NoPerm_User: "&cYou don't have the permission &d"
 GTACops_NoPerm_Admin: "&cYou don't have the permission &d"
 GTACops_Reload_comm: "&6GTACops reloaded!"
+
+GTACops_Gui:
+  MainPanel:
+    Title: "&d&lMain&6&lPanel"
+    Fine:
+      Name:  "&3&lPayFine"
+      Lore1: "&f>> &6Pay fine to the cops"
+      Lore2: "&f>> &6Reduce your wanted level and kills"
+    Compass:
+      Name: "&4&lTracker"
+      Lore1: "&f>> &6Track Wanted Players"
+      Lore2: "&f>> &6Find Direction of the player"
+    Barrier:
+      Name: "&c&lClose"
+      Lore: "&f>> &6Close The Gui"
+  TrackerPanel:
+    Title: "&d&lTracker&6&lPanel"

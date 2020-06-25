@@ -20,7 +20,7 @@ public class TopStats {
 
     public void topKillsBoard(Player sender) {
         HashMap<Player, Integer> hashMap = new HashMap<Player, Integer>();
-        for (Player player : Bukkit.getServer().getOnlinePlayers())
+        for (Player player : Bukkit.getOnlinePlayers())
             hashMap.put(player, fetchDetails.getKills(player));
         displayLeaderBoard(sender, sortByValue(hashMap), false);
 
@@ -56,7 +56,7 @@ public class TopStats {
 
     private void displayLeaderBoard(Player sender, HashMap<Player, Integer> hashMap, boolean flag) {
         int counter = 10;
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f<&6----------&f&l[&d&lGTACops&f&l]&6----------&f>"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.HEADER));
         for (Player player : hashMap.keySet()) {
             if ((counter--) != 0) {
                 if (flag)
@@ -67,6 +67,6 @@ public class TopStats {
                             " &f: &c" + fetchDetails.getKills(player)));
             }
         }
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f<&6----------&f&l[&d&lGTACops&f&l]&6----------&f>"));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.FOOTER));
     }
 }

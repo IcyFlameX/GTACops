@@ -42,10 +42,10 @@ public class CustomCops {
         pigZombie.getEquipment().setBoots(new ItemStack(Material.getMaterial(
                 plugin.getConfigFileManager().getConfigFileConfig().getString("Cops_Boots.Level" + level))));
         pigZombie.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,
-                plugin.getConfigFileManager().getConfigFileConfig().getInt("Cops_Speed.Duration.Level" + level),
+                plugin.getConfigFileManager().getConfigFileConfig().getInt("Cops_Speed.Duration.Level" + level)*20,
                 plugin.getConfigFileManager().getConfigFileConfig().getInt("Cops_Speed.Intensity.Level" + level)));
         pigZombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE,
-                plugin.getConfigFileManager().getConfigFileConfig().getInt("Cops_Strength.Duration.Level" + level),
+                plugin.getConfigFileManager().getConfigFileConfig().getInt("Cops_Strength.Duration.Level" + level)*20,
                 plugin.getConfigFileManager().getConfigFileConfig().getInt("Cops_Strength.Intensity.Level" + level)));
     }
 }

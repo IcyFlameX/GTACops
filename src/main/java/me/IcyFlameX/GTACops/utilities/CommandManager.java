@@ -2,6 +2,7 @@ package me.IcyFlameX.GTACops.utilities;
 
 import me.IcyFlameX.GTACops.api.FetchDetails;
 import me.IcyFlameX.GTACops.main.Main;
+import me.IcyFlameX.GTACops.mechanics.GUIClass;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +13,10 @@ public final class CommandManager implements CommandExecutor {
 
     private Main plugin;
     private FetchDetails fetchDetails;
-    private final String PREFIX = "&f&l[&d&lGTACops&f&l]&6 &f&l>> ";
+    public static final String PREFIX = "&f&l[&d&lGTACops&f&l]&6 &f&l>> ";
+    public static final String TITLE = "&f&l[&d&lGTACops&f&l]";
+    public static final String HEADER = "&f<&6----------&f&l[&d&lGTACops&f&l]&6----------&f>";
+    public static final String FOOTER = "&f<&6--------------&f&l()&6--------------&f>";
 
     public CommandManager(Main plugin) {
         this.plugin = plugin;
@@ -42,7 +46,11 @@ public final class CommandManager implements CommandExecutor {
                             new TopStats(plugin).topKillsBoard(player);
                         else if ("topwant".equalsIgnoreCase(args[0]))
                             new TopStats(plugin).topWantBoard(player);
-                        else if ("reload".equalsIgnoreCase(args[0])) {
+                        else if ("panel".equalsIgnoreCase(args[0])) {
+                            GUIClass guiClass = new GUIClass(plugin);
+                            guiClass.openGUI();
+                            player.openInventory(guiClass.getInventory());
+                        } else if ("reload".equalsIgnoreCase(args[0])) {
                             if (player.hasPermission("GTACops.admin")) {
                                 plugin.getConfigFileManager().reloadConfig();
                                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX + plugin.getConfigFileManager()
@@ -67,4 +75,5 @@ public final class CommandManager implements CommandExecutor {
                 "GTACops.admin"));
         return true;
     }
+
 }
