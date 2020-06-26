@@ -2,16 +2,19 @@ package me.IcyFlameX.GTACops.listenerPackage;
 
 import me.IcyFlameX.GTACops.main.Main;
 import me.IcyFlameX.GTACops.mechanics.CopsFeature;
-import me.IcyFlameX.GTACops.mechanics.GUIClass;
+import me.IcyFlameX.GTACops.mechanics.CustomSign;
 import me.IcyFlameX.GTACops.mechanics.Tracker;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
+import me.IcyFlameX.GTACops.utilities.PayFine;
 import me.IcyFlameX.GTACops.utilities.UpdateKillWant;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -26,6 +29,8 @@ public class KillListener implements Listener {
     private UpdateKillWant updateKillWant;
     private CopsFeature copsFeature;
     private Tracker tracker;
+    private PayFine payFine;
+    private CustomSign customSign;
     private HashMap<Player, ArrayList<PigZombie>> playerCopsMap;
 
     public KillListener(Main plugin) {
@@ -33,6 +38,8 @@ public class KillListener implements Listener {
         updateKillWant = new UpdateKillWant(this.plugin);
         copsFeature = new CopsFeature(this.plugin);
         tracker = new Tracker(this.plugin);
+        payFine = new PayFine(this.plugin);
+        customSign = new CustomSign(this.plugin);
         playerCopsMap = new HashMap<Player, ArrayList<PigZombie>>();
     }
 
@@ -68,9 +75,10 @@ public class KillListener implements Listener {
                 plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_Gui.MainPanel.Title") + ""))) {
             if (event.getCurrentItem() != null && event.getCurrentItem().getItemMeta() != null) {
                 Player player = (Player) event.getWhoClicked();
-                if (event.getSlot() == 0)
+                if (event.getSlot() == 0) {
+                    payFine.reduceWantLevel(player, true, 0);
                     player.closeInventory();
-                else if (event.getSlot() == 4) {
+                } else if (event.getSlot() == 4) {
                     tracker.trackPlayerDown(player);
                     player.closeInventory();
                 } else if (event.getSlot() == 8)
@@ -81,16 +89,35 @@ public class KillListener implements Listener {
     }
 
     @EventHandler
+    public void onSignChange(SignChangeEvent event) {
+        customSign.changeSign(event, event.getPlayer());
+    }
+
+
+    @EventHandler
     public void onMouseClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack item = event.getItem();
-        if (item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',
+        if (item != null && item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',
                 plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_Gui.MainPanel.Compass.Name") + ""))) {
             if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK))
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX
                         + plugin.getConfigFileManager().
                         getMsgConfigFile().getString("Track_Player_Dist") + tracker.getDistOfNearestWanted(player)));
+            else if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX
+                        + plugin.getConfigFileManager().
+                        getMsgConfigFile().getString("Track_NoLonger")));
+                tracker.stopTracking(player);
+            }
+        }
+        if (action.equals(Action.RIGHT_CLICK_BLOCK) && event.getClickedBlock().getState() instanceof Sign) {
+            Sign sign = (Sign) event.getClickedBlock().getState();
+            if (ChatColor.translateAlternateColorCodes('&', CommandManager.TITLE).equals(sign.getLine(0)) &&
+                    ChatColor.translateAlternateColorCodes('&', CustomSign.SIGNPAYFINE).equals(sign.getLine(2))
+                    && sign.getLine(1).startsWith("$") && sign.getLine(1).substring(1).matches("[0-9]+"))
+                customSign.deductFromPlayer(sign, player);
         }
     }
 }

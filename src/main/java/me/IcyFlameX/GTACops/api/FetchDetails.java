@@ -48,4 +48,17 @@ public class FetchDetails {
         return sb.toString();
 
     }
+
+    public void setWantLvL(Player player, int wantlvl) {
+        wantlvl = wantlvl > 5 ? 5 : Math.max(0, wantlvl);
+        String wantpath = player.getUniqueId().toString() + "." + player.getName() + ".WantLevel";
+        plugin.getConfigFileManager().getStatsFileConfig().set(wantpath, wantlvl);
+        plugin.getConfigFileManager().saveStatsFile();
+    }
+
+    public void setKills(Player player, int kills) {
+        String killPath = player.getUniqueId().toString() + "." + player.getName() + ".Kills";
+        plugin.getConfigFileManager().getStatsFileConfig().set(killPath, kills);
+        plugin.getConfigFileManager().saveStatsFile();
+    }
 }

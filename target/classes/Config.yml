@@ -181,3 +181,16 @@ Cops_Time:
    Level3: 4
    Level4: 5
    Level5: 6
+
+#---------------------------------------------------------#
+#                            PayFine
+#---------------------------------------------------------#
+#Money required to Decrease Player's WantedLevel by 1 from that specific level
+#Example To reduce wanted level from 5 to 4, player has to pay 5000
+#Example To reduce wanted level from 1 to 0 (No wanted level), player has to pay 500
+Money_Deduction:
+   Level1: 500
+   Level2: 1000
+   Level3: 1500
+   Level4: 3000
+   Level5: 5000

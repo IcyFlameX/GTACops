@@ -11,13 +11,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Tracker {
     private Main plugin;
-    private Tracker.MinPlayer minPlayer;
+    private HashMap<Player, MinPlayer> hashMap;
+    private boolean check = false;
 
     public Tracker(Main plugin) {
         this.plugin = plugin;
+        hashMap = new HashMap<Player, MinPlayer>();
     }
 
     protected class MinPlayer {
@@ -38,43 +41,9 @@ public class Tracker {
         }
     }
 
-    private MinPlayer findNearestWanted(Player sender) {
-        int min = Integer.MAX_VALUE;
-        Player find = null;
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (sender.getWorld() == player.getWorld())
-                if (sender.getLocation().distance(player.getLocation()) <= min) {
-                    if (!player.equals(sender)) {
-                        min = (int) sender.getLocation().distance(player.getLocation());
-                        find = player;
-                    }
-                }
-        }
-        return new MinPlayer(min, find);
-    }
-
-    public void trackPlayerDown(Player sender) {
-        minPlayer = new Tracker(plugin).findNearestWanted(sender);
-        if (minPlayer.getPlayer() == null)
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.TITLE +
-                    plugin.getConfigFileManager().getMsgConfigFile().getString("Not_Online") + ""));
-        else {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.HEADER));
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().
-                    getMsgConfigFile().getString("Track_Player_Name") + minPlayer.getPlayer().getDisplayName()));
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().
-                    getMsgConfigFile().getString("Track_Player_Dist") + minPlayer.getDist()));
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.FOOTER));
-            addCompassToPlayer(sender, minPlayer.getPlayer());
-            sender.setCompassTarget(minPlayer.getPlayer().getLocation());
-        }
-    }
-
     private void addCompassToPlayer(Player sender, Player toFind) {
         Inventory inventory = sender.getInventory();
-        int i = 0;
-        int pos = 0;
-        int counter = 0;
+        int i = 0, pos = 0, counter = 0;
         for (ItemStack itemStack : inventory.getContents()) {
             if (itemStack == null && counter == 0) {
                 pos = i;
@@ -100,8 +69,64 @@ public class Tracker {
         return itemStack;
     }
 
+    private void findNearestWanted(Player sender) {
+        int min = Integer.MAX_VALUE;
+        Player find = null;
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (sender.getWorld() == player.getWorld())
+                if (sender.getLocation().distance(player.getLocation()) <= min) {
+                    if (!player.equals(sender)) {
+                        min = (int) sender.getLocation().distance(player.getLocation());
+                        find = player;
+                    }
+                }
+        }
+        hashMap.put(sender, new MinPlayer(min, find));
+    }
+
+    private void pointToPlayer() {
+        check = true;
+        Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+            public void run() {
+                for (Player player : hashMap.keySet()) {
+                    if (player != null) {
+                        player.setCompassTarget(hashMap.get(player).getPlayer().getLocation());
+                    }
+                }
+            }
+        }, 0L, 20L);
+    }
+
+    public void trackPlayerDown(Player sender) {
+        findNearestWanted(sender);
+        if (hashMap.get(sender).getPlayer() == null)
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.TITLE +
+                    plugin.getConfigFileManager().getMsgConfigFile().getString("Not_Online") + ""));
+        else {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.HEADER));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().
+                    getMsgConfigFile().getString("Track_Player_Name") + hashMap.get(sender).getPlayer().getDisplayName()));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().
+                    getMsgConfigFile().getString("Track_Player_Dist") + hashMap.get(sender).getDist()));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.FOOTER));
+            addCompassToPlayer(sender, hashMap.get(sender).getPlayer());
+            if (!check)
+                pointToPlayer();
+        }
+    }
 
     public int getDistOfNearestWanted(Player player) {
-        return (int) player.getLocation().distance(minPlayer.getPlayer().getLocation());
+        return (int) player.getLocation().distance(hashMap.get(player).getPlayer().getLocation());
+    }
+
+    public void stopTracking(Player sender) {
+        sender.setCompassTarget(sender.getWorld().getSpawnLocation());
+        sender.getInventory().getItemInMainHand();
+        if (hashMap.containsKey(sender))
+            hashMap.remove(sender);
+        for (ItemStack itemStack : sender.getInventory()) {
+            if (itemStack != null && (ChatColor.translateAlternateColorCodes('&', "&4&lTracker")).equals(itemStack.getItemMeta().getDisplayName()))
+                sender.getInventory().remove(itemStack);
+        }
     }
 }

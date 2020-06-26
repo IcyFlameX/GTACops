@@ -69,7 +69,7 @@ public final class CommandManager implements CommandExecutor {
         return true;
     }
 
-    private boolean noPermAdmin(Player player) {
+    public boolean noPermAdmin(Player player) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX +
                 plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm_Admin") +
                 "GTACops.admin"));

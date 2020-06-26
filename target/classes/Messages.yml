@@ -19,10 +19,14 @@
 Current_Kills: "&6Your current kills so far :&c"
 Current_Wanted_LvL: "&6Your Wanted Level is Now :&c "
 
+PayFine_NoMoney: "&6You &ddo not&6 have enough money!"
+PayFine_NotWanted: "&6You are &dnot&6 wanted now"
+TransacFailed: "&6Could Not Do &dTransaction&6 due to issues"
 
 Not_Online: "&6Player not Online!"
 Track_Player_Name: "&dTracking Player &6: "
 Track_Player_Dist: "&dDistance &6: "
+Track_NoLonger: "&6You are no longer tracking the player."
 
 GTACops_Help_comm: "&cType &d/gcops help &cfor info in GTACops plugin"
 GTACops_NoPerm_User: "&cYou don't have the permission &d"
