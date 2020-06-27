@@ -44,8 +44,8 @@ public class UpdateKillWant {
                 if (currentKill == plugin.getConfigFileManager().getConfigFileConfig().getInt("Kills_Per_WantedLevel.Level" + i)) {
                     this.plugin.getConfigFileManager().getStatsFileConfig().set(getWantPath(killer), i);
                     killer.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            "&D&L[GTACops] &f&L>>" + this.plugin.getConfigFileManager().getMsgConfigFile().
-                                    getString("Current_Wanted_LvL")) + i);
+                            CommandManager.PREFIX + this.plugin.getConfigFileManager().getMsgConfigFile().
+                                    getString("Current_Wanted_LvL")) + fetchDetails.getWantLvlStars(killer));
                     break;
                 }
         } else

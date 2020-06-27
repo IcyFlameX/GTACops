@@ -28,7 +28,7 @@ public class CustomSign {
                 sign.setLine(2, ChatColor.translateAlternateColorCodes('&', SIGNPAYFINE));
             } else
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
-                        plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm_Admin") +
+                        plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm") +
                         "GTACops.admin"));
         }
     }

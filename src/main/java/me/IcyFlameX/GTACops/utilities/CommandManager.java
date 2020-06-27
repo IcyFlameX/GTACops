@@ -3,6 +3,7 @@ package me.IcyFlameX.GTACops.utilities;
 import me.IcyFlameX.GTACops.api.FetchDetails;
 import me.IcyFlameX.GTACops.main.Main;
 import me.IcyFlameX.GTACops.mechanics.GUIClass;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,7 +30,7 @@ public final class CommandManager implements CommandExecutor {
             if (label.equalsIgnoreCase("gcops")) {
                 if (!player.hasPermission("GTACops.user")) {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX +
-                            plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm_User") +
+                            plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm") +
                             "GTACops.user"));
                     return true;
                 } else {
@@ -62,6 +63,20 @@ public final class CommandManager implements CommandExecutor {
                                     getConfigFileManager().getMsgConfigFile().getString("GTACops_Help_comm")));
                             return true;
                         }
+                    } else if (args.length == 2) {
+                        if ("reset".equalsIgnoreCase(args[0])) {
+                            if (player.hasPermission("GTACops.admin")) {
+                                changeStats(player, new String[]{args[1], "0"});
+                            } else
+                                noPermAdmin(player);
+                        }
+                    } else if (args.length == 3) {
+                        if ("set".equalsIgnoreCase(args[0])) {
+                            if (player.hasPermission("GTACops.admin")) {
+                                changeStats(player, new String[]{args[1], args[2]});
+                            } else
+                                noPermAdmin(player);
+                        }
                     }
                 }
             }
@@ -69,11 +84,34 @@ public final class CommandManager implements CommandExecutor {
         return true;
     }
 
+    private void changeStats(Player player, String[] args) {
+        boolean flag = false;
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            if (online.getName().equals(args[0]) || online.getDisplayName().equals(args[0])) {
+                if (Integer.parseInt(args[1]) == 0) {
+                    fetchDetails.setKills(online, 0);
+                    fetchDetails.setWantLvL(online, 0);
+                } else {
+                    fetchDetails.setKills(online, plugin.getConfigFileManager().getConfigFileConfig().getInt("Kills_Per_WantedLevel.Level" +
+                            Integer.parseInt(args[1])));
+                    fetchDetails.setWantLvL(online, Integer.parseInt(args[1]));
+                }
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                        plugin.getConfigFileManager().getMsgConfigFile().getString("Stats_Change")));
+                online.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                        plugin.getConfigFileManager().getMsgConfigFile().getString("Stats_Change_Admin")));
+                flag = true;
+            }
+        }
+        if (!flag)
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                    plugin.getConfigFileManager().getMsgConfigFile().getString("Not_Online")));
+    }
+
     public boolean noPermAdmin(Player player) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX +
-                plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm_Admin") +
+                plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm") +
                 "GTACops.admin"));
         return true;
     }
-
 }

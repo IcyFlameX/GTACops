@@ -2,7 +2,7 @@ package me.IcyFlameX.GTACops.main;
 
 import me.IcyFlameX.GTACops.dataManager.ConfigFileManager;
 import me.IcyFlameX.GTACops.dependency.VaultDependency;
-import me.IcyFlameX.GTACops.listenerPackage.KillListener;
+import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +25,7 @@ public final class Main extends JavaPlugin implements Listener {
         } else {
             setConfigFileManager(new ConfigFileManager(this));
             this.getCommand("gcops").setExecutor(new CommandManager(this));
-            this.getServer().getPluginManager().registerEvents(new KillListener(this), this);
+            this.getServer().getPluginManager().registerEvents(new ListenerClass(this), this);
             super.onEnable();
         }
     }

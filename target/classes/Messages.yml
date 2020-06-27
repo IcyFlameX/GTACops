@@ -18,19 +18,21 @@
 
 Current_Kills: "&6Your current kills so far :&c"
 Current_Wanted_LvL: "&6Your Wanted Level is Now :&c "
+Stats_Change: "&dPlayer &6stats has been changed."
+Stats_Change_Admin: "&dYour &6stats has been changed by &dstaff."
 
 PayFine_NoMoney: "&6You &ddo not&6 have enough money!"
-PayFine_NotWanted: "&6You are &dnot&6 wanted now"
-TransacFailed: "&6Could Not Do &dTransaction&6 due to issues"
+PayFine_NotWanted: "&6You are &dnot&6 wanted now."
+TransacFailed: "&6Could Not Do &dTransaction&6 due to issues."
+
 
 Not_Online: "&6Player not Online!"
 Track_Player_Name: "&dTracking Player &6: "
 Track_Player_Dist: "&dDistance &6: "
 Track_NoLonger: "&6You are no longer tracking the player."
 
-GTACops_Help_comm: "&cType &d/gcops help &cfor info in GTACops plugin"
-GTACops_NoPerm_User: "&cYou don't have the permission &d"
-GTACops_NoPerm_Admin: "&cYou don't have the permission &d"
+GTACops_Help_comm: "&cType &d/gcops help &cfor info in GTACops plugin."
+GTACops_NoPerm: "&cYou don't have the permission &d"
 GTACops_Reload_comm: "&6GTACops reloaded!"
 
 GTACops_Gui:
@@ -49,3 +51,116 @@ GTACops_Gui:
       Lore: "&f>> &6Close The Gui"
   TrackerPanel:
     Title: "&d&lTracker&6&lPanel"
+
+
+#---------------------------------------------------#
+#               Titles and Subtitles
+#               Messages To Displayed
+#       Set Enable_Title in Config.yml -> True
+#---------------------------------------------------#
+#Set the title and subtitle of a player who dies.
+#Title and Subtitle is respective to the wanted level of the player.
+Title:
+  Level1: "&cBusted - Level 1"
+  Level2: "&cBusted - Level 2"
+  Level3: "&cBusted - Level 3"
+  Level4: "&cBusted - Level 4"
+  Level5: "&cBusted - Level 5"
+SubTitle:
+  Level1: "&9Get Rekt - Level 1"
+  Level2: "&9Get Rekt - Level 2"
+  Level3: "&9Get Rekt - Level 3"
+  Level4: "&9Get Rekt - Level 4"
+  Level5: "&9Get Rekt - Level 5"
+
+#---------------------------------------------------#
+#               Rewards & Punishments
+#---------------------------------------------------#
+
+#***************************************************#
+#    Rewards For Killing Players with Wanted Level
+#       Messages To Displayed
+#   Set Enable_Rewards_Players in Config.yml -> True
+#***************************************************#
+#Rewards given to a player for killing a player who has a wanted level.
+#Each level represents the death player's wanted level.
+#For Example when he kills a player who had wanted level 3, he player gets $3500 and 84 diamonds.
+Rewards_KillPlayer:
+  Level1:
+    - "&6You got &d$1500 &6for killing the wanted player."
+    - "&6You have been rewarded with &d64 &6diamonds."
+  Level2:
+    - "&6You got &d$2500 &6for killing the wanted player."
+    - "&6You have been rewarded with &d74 &6diamonds."
+  Level3:
+    - "&6You got &d$3500 &6for killing the wanted player."
+    - "&6You have been rewarded with &d84 &6diamonds."
+  Level4:
+    - "&6You got &d$4500 &6for killing the wanted player."
+    - "&6You have been rewarded with &d94 &6diamonds."
+  Level5:
+    - "&6You got &d$5500 &6for killing the wanted player."
+    - "&6You have been rewarded with &d104 &6diamonds."
+
+#***************************************************#
+#           Rewards For Killing Cops
+#            Messages To Displayed
+#   Set Enable_Rewards_Cops in Config.yml -> True
+#***************************************************#
+#Rewards given to a player for killing a Cop.[Note: For Killing a Single Cop, you get this reward]
+#Rewards for the player for the wanted level he currently has
+#For Example when he kills a cop and he has wanted level 3 currently, he gets $40 and 3 dirts.
+Rewards_KillCops:
+  Level1:
+    - "&6You got &d$20 &6for killing the wanted player."
+    - "&6You have been rewarded with &d1 &6apple."
+  Level2:
+    - "&6You got &d30 &6for killing the wanted player."
+    - "&6You have been rewarded with &d2 &6sand."
+  Level3:
+    - "&6You got &d$40 &6for killing the wanted player."
+    - "&6You have been rewarded with &d3 &6dirt."
+  Level4:
+    - "&6You got &d$50 &6for killing the wanted player."
+    - "&6You have been rewarded with &d4 &6iron."
+  Level5:
+    - "&6You got &d$60 &6for killing the wanted player."
+    - "&6You have been rewarded with &d5 &6gold."
+
+#***************************************************#
+#   Punish For Players when they die due to Player
+#         Messages To Displayed
+#   Set Enable_Punish_Player in Config.yml -> True
+#**************************************************#
+#Punishment he gets depends on the wanted level he had just before dying.
+#Example If he had level 4 before dying, those will be the consequences mentioned below
+Punish_KillByPlayer:
+  Level1:
+    - "&d$1500 &6has been taken from you."
+  Level2:
+    - "&d$2500 &6has been taken from you."
+  Level3:
+    - "&d$3500 &6has been taken from you."
+  Level4:
+    - "&d$4500 &6has been taken from you."
+  Level5:
+    - "&d$5500 &6has been taken from you."
+
+#***************************************************#
+#   Punish For Players when they die due to Cops
+#         Messages To Displayed
+#   Set Enable_Punish_Cops in Config.yml -> True
+#**************************************************#
+#Punishment he gets depends on the wanted level he had just before dying.
+#Example If he had level 4 before dying, those will be the consequences mentioned below
+Punish_KillByCops:
+  Level1:
+    - "&d$200 &6has been taken from you."
+  Level2:
+    - "&d$400 &6has been taken from you."
+  Level3:
+    - "&d$600 &6has been taken from you."
+  Level4:
+    - "&d$800 &6has been taken from you."
+  Level5:
+    - "&d$1000 &6has been taken from you."

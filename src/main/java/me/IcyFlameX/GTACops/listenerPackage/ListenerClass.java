@@ -4,9 +4,7 @@ import me.IcyFlameX.GTACops.main.Main;
 import me.IcyFlameX.GTACops.mechanics.CopsFeature;
 import me.IcyFlameX.GTACops.mechanics.CustomSign;
 import me.IcyFlameX.GTACops.mechanics.Tracker;
-import me.IcyFlameX.GTACops.utilities.CommandManager;
-import me.IcyFlameX.GTACops.utilities.PayFine;
-import me.IcyFlameX.GTACops.utilities.UpdateKillWant;
+import me.IcyFlameX.GTACops.utilities.*;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.PigZombie;
@@ -23,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class KillListener implements Listener {
+public class ListenerClass implements Listener {
 
     private Main plugin;
     private UpdateKillWant updateKillWant;
@@ -31,15 +29,19 @@ public class KillListener implements Listener {
     private Tracker tracker;
     private PayFine payFine;
     private CustomSign customSign;
+    private RewardsPunish rewardsPunish;
+    private TitleClass titleClass;
     private HashMap<Player, ArrayList<PigZombie>> playerCopsMap;
 
-    public KillListener(Main plugin) {
+    public ListenerClass(Main plugin) {
         this.plugin = plugin;
         updateKillWant = new UpdateKillWant(this.plugin);
         copsFeature = new CopsFeature(this.plugin);
         tracker = new Tracker(this.plugin);
         payFine = new PayFine(this.plugin);
         customSign = new CustomSign(this.plugin);
+        rewardsPunish = new RewardsPunish(this.plugin);
+        titleClass = new TitleClass(this.plugin);
         playerCopsMap = new HashMap<Player, ArrayList<PigZombie>>();
     }
 
@@ -48,8 +50,11 @@ public class KillListener implements Listener {
         if (event.getEntity() instanceof Player) {
             Player dead = (Player) event.getEntity();
             if (dead.getHealth() <= event.getDamage()) {
-                if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
+                if (event.getDamager() instanceof Player) {
                     Player killer = (Player) event.getDamager();
+                    rewardsPunish.giveReward(killer, dead, true);
+                    rewardsPunish.givePunish(dead, true);
+                    titleClass.sendTitle(dead);
                     updateKillWant.updateKill(killer, dead);
                     if (!(killer.hasPermission("GTACops.user.bypass"))) {
                         copsFeature.spawnCops(killer, playerCopsMap);
@@ -57,13 +62,19 @@ public class KillListener implements Listener {
                     }
                     copsFeature.killCops(dead, playerCopsMap);
                 }
-                if (event.getDamager() instanceof Player && event.getEntity() instanceof PigZombie) {
+                if (event.getDamager() instanceof PigZombie) {
+                    copsFeature.killCops(dead, playerCopsMap);
+                    titleClass.sendTitle(dead);
+                    rewardsPunish.givePunish(dead, false);
+                    updateKillWant.resetKillWant(dead);
+                }
+            }
+        } else if (event.getEntity() instanceof PigZombie) {
+            if (event.getDamager() instanceof Player) {
+                if (((PigZombie) event.getEntity()).getHealth() <= event.getFinalDamage()) {
                     Player killer = (Player) event.getDamager();
                     copsFeature.removeCopsUponDeath(killer, playerCopsMap, (PigZombie) event.getEntity());
-                }
-                if (event.getDamager() instanceof PigZombie) {
-                    updateKillWant.resetKillWant(dead);
-                    copsFeature.killCops(dead, playerCopsMap);
+                    rewardsPunish.giveReward(killer, null, false);
                 }
             }
         }
@@ -79,7 +90,11 @@ public class KillListener implements Listener {
                     payFine.reduceWantLevel(player, true, 0);
                     player.closeInventory();
                 } else if (event.getSlot() == 4) {
-                    tracker.trackPlayerDown(player);
+                    if (player.hasPermission("GTACops.user.track"))
+                        tracker.trackPlayerDown(player);
+                    else
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().getMsgConfigFile()
+                                .getString("GTACops_NoPerm") + "GTACops.user.track"));
                     player.closeInventory();
                 } else if (event.getSlot() == 8)
                     player.closeInventory();
@@ -92,7 +107,6 @@ public class KillListener implements Listener {
     public void onSignChange(SignChangeEvent event) {
         customSign.changeSign(event, event.getPlayer());
     }
-
 
     @EventHandler
     public void onMouseClick(PlayerInteractEvent event) {
