@@ -51,9 +51,9 @@ Stars_EmptyColor: "&f"
 #StayTime --> Total amount of time, it will stay on screen for in seconds.
 #FadeIn --> Total amount of time, it will take for fade-in animation in sec.
 #FadeOut --> Total amount of time, it will take for fade-out animation in sec.
-TitleStayTime: 1
-TitleFadeInTime: 1
-TitleFadeOutTime: 1
+TitleStayTime: 2
+TitleFadeInTime: 2
+TitleFadeOutTime: 2
 
 #---------------------------------------------------------#
 #                           MURDERS
@@ -318,3 +318,16 @@ Rewards_KillCops:
   Level5:
     - eco give %player% 60
     - give %player% gold 5
+
+#---------------------------------------------------------#
+#                          CheatCard
+#---------------------------------------------------------#
+#Link for all the Materials in Minecraft[ MAKE SURE YOU COPY PASTE SAME]
+#https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#Item Type for the CheatCard
+CheatCard:
+  Type: PAPER
+  Name: "&d&lLeaveMeAlone"
+  Lore:
+    - "&dRight Click It To Remove All Cops."
+    - "&6Resets Your WantedLevel to 0."

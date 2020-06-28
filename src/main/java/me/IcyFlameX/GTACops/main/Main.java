@@ -3,7 +3,9 @@ package me.IcyFlameX.GTACops.main;
 import me.IcyFlameX.GTACops.dataManager.ConfigFileManager;
 import me.IcyFlameX.GTACops.dependency.VaultDependency;
 import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
+import me.IcyFlameX.GTACops.mechanics.CopsFeature;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,6 +16,7 @@ public final class Main extends JavaPlugin implements Listener {
     //To maintain only a single copy of the ConfigFileManager object
     // So as to reflect changes in every class
     private static ConfigFileManager configFileManager;
+    private CopsFeature copsFeature;
 
     @Override
     public void onEnable() {
@@ -32,7 +35,11 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        copsFeature = new CopsFeature(this);
         super.onDisable();
+        for (Player player : ListenerClass.playerCopsMap.keySet()) {
+            copsFeature.killCops(player, ListenerClass.playerCopsMap);
+        }
     }
 
     public ConfigFileManager getConfigFileManager() {

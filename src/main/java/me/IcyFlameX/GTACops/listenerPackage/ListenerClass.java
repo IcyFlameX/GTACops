@@ -1,10 +1,13 @@
 package me.IcyFlameX.GTACops.listenerPackage;
 
+import me.IcyFlameX.GTACops.api.FetchDetails;
 import me.IcyFlameX.GTACops.main.Main;
+import me.IcyFlameX.GTACops.mechanics.CheatCard;
 import me.IcyFlameX.GTACops.mechanics.CopsFeature;
 import me.IcyFlameX.GTACops.mechanics.CustomSign;
 import me.IcyFlameX.GTACops.mechanics.Tracker;
 import me.IcyFlameX.GTACops.utilities.*;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.PigZombie;
@@ -31,7 +34,9 @@ public class ListenerClass implements Listener {
     private CustomSign customSign;
     private RewardsPunish rewardsPunish;
     private TitleClass titleClass;
-    private HashMap<Player, ArrayList<PigZombie>> playerCopsMap;
+    private FetchDetails fetchDetails;
+    private CheatCard cheatCard;
+    public static HashMap<Player, ArrayList<PigZombie>> playerCopsMap;
 
     public ListenerClass(Main plugin) {
         this.plugin = plugin;
@@ -42,6 +47,8 @@ public class ListenerClass implements Listener {
         customSign = new CustomSign(this.plugin);
         rewardsPunish = new RewardsPunish(this.plugin);
         titleClass = new TitleClass(this.plugin);
+        fetchDetails = new FetchDetails(this.plugin);
+        cheatCard = new CheatCard(this.plugin);
         playerCopsMap = new HashMap<Player, ArrayList<PigZombie>>();
     }
 
@@ -56,6 +63,10 @@ public class ListenerClass implements Listener {
                     rewardsPunish.givePunish(dead, true);
                     titleClass.sendTitle(dead);
                     updateKillWant.updateKill(killer, dead);
+                    if (plugin.getConfigFileManager().getConfigFileConfig().getBoolean("Enable_Broadcast"))
+                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                                killer.getDisplayName() + " " + plugin.getConfigFileManager().getMsgConfigFile()
+                                .getString("BroadCastMessage") + fetchDetails.getWantLvlStars(killer)));
                     if (!(killer.hasPermission("GTACops.user.bypass"))) {
                         copsFeature.spawnCops(killer, playerCopsMap);
                         copsFeature.killCopsAfterTime(killer, playerCopsMap);
@@ -126,12 +137,17 @@ public class ListenerClass implements Listener {
                 tracker.stopTracking(player);
             }
         }
-        if (action.equals(Action.RIGHT_CLICK_BLOCK) && event.getClickedBlock().getState() instanceof Sign) {
-            Sign sign = (Sign) event.getClickedBlock().getState();
-            if (ChatColor.translateAlternateColorCodes('&', CommandManager.TITLE).equals(sign.getLine(0)) &&
-                    ChatColor.translateAlternateColorCodes('&', CustomSign.SIGNPAYFINE).equals(sign.getLine(2))
-                    && sign.getLine(1).startsWith("$") && sign.getLine(1).substring(1).matches("[0-9]+"))
-                customSign.deductFromPlayer(sign, player);
+        if (action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.RIGHT_CLICK_AIR)) {
+            if (event.getClickedBlock() != null && event.getClickedBlock().getState() instanceof Sign) {
+                Sign sign = (Sign) event.getClickedBlock().getState();
+                if (ChatColor.translateAlternateColorCodes('&', CommandManager.TITLE).equals(sign.getLine(0)) &&
+                        ChatColor.translateAlternateColorCodes('&', CustomSign.SIGNPAYFINE).equals(sign.getLine(2))
+                        && sign.getLine(1).startsWith("$") && sign.getLine(1).substring(1).matches("[0-9]+"))
+                    customSign.deductFromPlayer(sign, player);
+            }
+            if (item != null && item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "" +
+                    plugin.getConfigFileManager().getConfigFileConfig().getString("CheatCard.Name"))))
+                cheatCard.useCheatCard(event.getPlayer());
         }
     }
 }

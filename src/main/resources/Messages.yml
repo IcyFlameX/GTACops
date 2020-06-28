@@ -52,6 +52,12 @@ GTACops_Gui:
   TrackerPanel:
     Title: "&d&lTracker&6&lPanel"
 
+#---------------------------------------------------#
+#                   Broadcast
+#---------------------------------------------------#
+#BroadCastMessage for global players after player gets a new wanted lvl.
+BroadCastMessage: "&6 is now on Wanted Level &4"
+
 
 #---------------------------------------------------#
 #               Titles and Subtitles
@@ -164,3 +170,11 @@ Punish_KillByCops:
     - "&d$800 &6has been taken from you."
   Level5:
     - "&d$1000 &6has been taken from you."
+
+#---------------------------------------------------#
+#                   CheatCard
+#---------------------------------------------------#
+CheatCard:
+  Admin: "&6Given CheatCard to the player."
+  Usage: "&6You used your &dcheatcard. &6Cops Vanished XO"
+  No_Follow: "&dNo Cops &6are following you. Why waste it?"

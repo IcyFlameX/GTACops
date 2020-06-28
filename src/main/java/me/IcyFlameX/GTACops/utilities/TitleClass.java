@@ -18,14 +18,16 @@ public class TitleClass {
     public void sendTitle(Player sender) {
         if (plugin.getConfigFileManager().getConfigFileConfig().getBoolean("Enable_Title")) {
             int wantLvL = fetchDetails.getWantLvl(sender);
-            String title = ChatColor.translateAlternateColorCodes('&', "" +
-                    plugin.getConfigFileManager().getMsgConfigFile().getString("Title.Level" + wantLvL));
-            String subtitle = ChatColor.translateAlternateColorCodes('&', "" +
-                    plugin.getConfigFileManager().getMsgConfigFile().getString("SubTitle.Level" + wantLvL));
-            int duration = plugin.getConfigFileManager().getConfigFileConfig().getInt("TitleStayTime") * 20;
-            int fadeIn = plugin.getConfigFileManager().getConfigFileConfig().getInt("TitleFadeInTime") * 20;
-            int fadeOut = plugin.getConfigFileManager().getConfigFileConfig().getInt("TitleFadeOutTime") * 20;
-            sender.sendTitle(title, subtitle, fadeIn, duration, fadeOut);
+            if (wantLvL != 0) {
+                String title = ChatColor.translateAlternateColorCodes('&', "" +
+                        plugin.getConfigFileManager().getMsgConfigFile().getString("Title.Level" + wantLvL));
+                String subtitle = ChatColor.translateAlternateColorCodes('&', "" +
+                        plugin.getConfigFileManager().getMsgConfigFile().getString("SubTitle.Level" + wantLvL));
+                int duration = plugin.getConfigFileManager().getConfigFileConfig().getInt("TitleStayTime") * 20;
+                int fadeIn = plugin.getConfigFileManager().getConfigFileConfig().getInt("TitleFadeInTime") * 20;
+                int fadeOut = plugin.getConfigFileManager().getConfigFileConfig().getInt("TitleFadeOutTime") * 20;
+                sender.sendTitle(title, subtitle, fadeIn, duration, fadeOut);
+            }
         }
     }
 }

@@ -2,7 +2,9 @@ package me.IcyFlameX.GTACops.utilities;
 
 import me.IcyFlameX.GTACops.api.FetchDetails;
 import me.IcyFlameX.GTACops.main.Main;
+import me.IcyFlameX.GTACops.mechanics.CheatCard;
 import me.IcyFlameX.GTACops.mechanics.GUIClass;
+import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,6 +16,7 @@ public final class CommandManager implements CommandExecutor {
 
     private Main plugin;
     private FetchDetails fetchDetails;
+    private CheatCard cheatCard;
     public static final String PREFIX = "&f&l[&d&lGTACops&f&l]&6 &f&l>> ";
     public static final String TITLE = "&f&l[&d&lGTACops&f&l]";
     public static final String HEADER = "&f<&6----------&f&l[&d&lGTACops&f&l]&6----------&f>";
@@ -22,6 +25,7 @@ public final class CommandManager implements CommandExecutor {
     public CommandManager(Main plugin) {
         this.plugin = plugin;
         fetchDetails = new FetchDetails(this.plugin);
+        cheatCard = new CheatCard(this.plugin);
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -72,8 +76,15 @@ public final class CommandManager implements CommandExecutor {
                         }
                     } else if (args.length == 3) {
                         if ("set".equalsIgnoreCase(args[0])) {
-                            if (player.hasPermission("GTACops.admin")) {
+                            if (player.hasPermission("GTACops.admin"))
                                 changeStats(player, new String[]{args[1], args[2]});
+                            else
+                                noPermAdmin(player);
+                        } else if ("givecheat".equalsIgnoreCase(args[0])) {
+                            if (player.hasPermission("GTACops.admin")) {
+                                cheatCard.giveCheatCard(args[1], Integer.parseInt(args[2]));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                                        plugin.getConfigFileManager().getMsgConfigFile().getString("CheatCard.Admin")));
                             } else
                                 noPermAdmin(player);
                         }
@@ -81,6 +92,7 @@ public final class CommandManager implements CommandExecutor {
                 }
             }
         }
+
         return true;
     }
 
