@@ -29,14 +29,13 @@ public class CheatCard {
         if (Bukkit.getServer().getPlayer(playerName) != null) {
             Player player = Bukkit.getPlayer(playerName);
             ItemStack itemStack = getCardProperties();
-            itemStack.setAmount(no);
             player.getInventory().addItem(itemStack);
         }
     }
 
     public void useCheatCard(Player player) {
         Inventory inventory = player.getInventory();
-        if (player.hasPermission("GTACops.user.cheat")) {
+        if (player.hasPermission("GTACops.user.cheat") || player.hasPermission("GTACops.admin")) {
             if (ListenerClass.playerCopsMap.containsKey(player)) {
                 inventory.removeItem(getCardProperties());
                 copsFeature.killCops(player, ListenerClass.playerCopsMap);

@@ -101,7 +101,7 @@ public class ListenerClass implements Listener {
                     payFine.reduceWantLevel(player, true, 0);
                     player.closeInventory();
                 } else if (event.getSlot() == 4) {
-                    if (player.hasPermission("GTACops.user.track"))
+                    if (player.hasPermission("GTACops.user.track") || player.hasPermission("GTACops.admin"))
                         tracker.trackPlayerDown(player);
                     else
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().getMsgConfigFile()

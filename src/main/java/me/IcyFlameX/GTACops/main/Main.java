@@ -46,8 +46,13 @@ public final class Main extends JavaPlugin implements Listener {
         return configFileManager;
     }
 
+    public static ConfigFileManager getApiCongManager() {
+        return configFileManager;
+    }
+
     public void setConfigFileManager(ConfigFileManager configFileManager) {
         Main.configFileManager = configFileManager;
     }
+
 
 }
