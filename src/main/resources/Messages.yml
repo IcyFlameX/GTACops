@@ -16,25 +16,49 @@
 #
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 
-Current_Kills: "&6Your current kills so far :&c"
-Current_Wanted_LvL: "&6Your Wanted Level is Now :&c "
+#---------------------------------------------------#
+#                WantedLvL/Kills-Related
+#---------------------------------------------------#
+#To Show Current Kills of the Player
+Current_Kills: "&6Current kills so far :&c "
+#To Show Current Wanted Level of the Player
+Current_Wanted_LvL: "&6Current Wanted Level is Now :&c "
+#To Notify Player, that his stats (Kills, WantedLevel) has been changed
 Stats_Change: "&dPlayer &6stats has been changed."
+#To Notify Admin, that he has changed stats (Kills, WantedLevel) of the player
 Stats_Change_Admin: "&dYour &6stats has been changed by &dstaff."
 
+#---------------------------------------------------#
+#                    PAYFINE
+#---------------------------------------------------#
+#To notify the player he does not have enough money.
 PayFine_NoMoney: "&6You &ddo not&6 have enough money!"
+#To notify the player that he is not wanted now.
 PayFine_NotWanted: "&6You are &dnot&6 wanted now."
+#To notify the player in case transaction does not happen [Vault Issue - To be reported to admin]
 TransacFailed: "&6Could Not Do &dTransaction&6 due to issues."
 
-
+#---------------------------------------------------#
+#                    TRACKPLAYER
+#---------------------------------------------------#
+#To notify the player is not online
 Not_Online: "&6Player not Online!"
+#To notify there are no online players with wanted level
+Not_Online_Wanted: "&6No Player found with &dWanted Level."
+#Title for - Denoting the name of player it is tracking
 Track_Player_Name: "&dTracking Player &6: "
+#Title for - To notify the distance of the player he is tracking
 Track_Player_Dist: "&dDistance &6: "
+#To denote the player after right clicking the tracker(Compass) that he is not tracking anymore
 Track_NoLonger: "&6You are no longer tracking the player."
+#If player logs out or borrows tracker for someone from else and then uses it, it will tell him
+#tracker does not work.
+Track_Again: "&6Get a new &dTracker&6, this one wont work."
 
-GTACops_Help_comm: "&cType &d/gcops help &cfor info in GTACops plugin."
-GTACops_NoPerm: "&cYou don't have the permission &d"
-GTACops_Reload_comm: "&6GTACops reloaded!"
-
+#---------------------------------------------------#
+#                    GCOPS PANEL
+#---------------------------------------------------#
+#When player types /gcops panel, the configuration :
 GTACops_Gui:
   MainPanel:
     Title: "&d&lMain&6&lPanel"
@@ -48,16 +72,12 @@ GTACops_Gui:
       Lore2: "&f>> &6Find Direction of the player"
     Barrier:
       Name: "&c&lClose"
-      Lore: "&f>> &6Close The Gui"
-  TrackerPanel:
-    Title: "&d&lTracker&6&lPanel"
-
+      Lore: "&f>> &6Close The GUI"
 #---------------------------------------------------#
 #                   Broadcast
 #---------------------------------------------------#
 #BroadCastMessage for global players after player gets a new wanted lvl.
 BroadCastMessage: "&6 is now on Wanted Level &4"
-
 
 #---------------------------------------------------#
 #               Titles and Subtitles
@@ -178,3 +198,36 @@ CheatCard:
   Admin: "&6Given CheatCard to the player."
   Usage: "&6You used your &dcheatcard. &6Cops Vanished XO"
   No_Follow: "&dNo Cops &6are following you. Why waste it?"
+
+#---------------------------------------------------#
+#                    Miscellaneous
+#---------------------------------------------------#
+#If player types wrong command format or just do /gcops only
+GTACops_Help_comm: "&cType &d/gcops help &cfor info in GTACops plugin."
+#-------------
+#To be displayed when player does /gcops help
+#info for /gcops kills
+gcops_kills: "&6Shows the players's current kills."
+#info for /gcops wantlvl
+gcops_wantlvl: "&6Shows the players's current wanted level."
+#info for /gcops topkills
+gcops_topkills: "&6Shows the Top 10 players with most kills."
+#info for /gcops topwant
+gcops_topwant: "&6Shows the Top 10 players with most wanted level."
+#info for /gcops panel
+gcops_panel: "&6Open up the GUI Panel."
+#info for /gcops check
+gcops_check: "&6Admin : Shows the players's current kills & wanted level"
+#info for /gcops set
+gcops_set: "&6Admin : Sets the player's wanted level to the specified number."
+#info for /gcops reset
+gcops_reset: "&6Admin : Sets the player's wanted level to 0"
+#info for /gcops cheat
+gcops_cheat: "&6Admin : Gives the player specified number of cheatcard."
+#info for /gcops reload
+gcops_reload: "&6Admin : Reload the plugin"
+#-------------
+#To be displayed when player does not have specific permission
+GTACops_NoPerm: "&6&cYou don't have the permission &d"
+#To be displayed to admin when plugin reloads after doing /gcops reload
+GTACops_Reload_comm: "&6GTACops reloaded!"

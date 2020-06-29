@@ -29,6 +29,7 @@ public class CheatCard {
         if (Bukkit.getServer().getPlayer(playerName) != null) {
             Player player = Bukkit.getPlayer(playerName);
             ItemStack itemStack = getCardProperties();
+            itemStack.setAmount(no);
             player.getInventory().addItem(itemStack);
         }
     }
@@ -44,10 +45,12 @@ public class CheatCard {
             } else
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX + plugin
                         .getConfigFileManager().getMsgConfigFile().getString("CheatCard.No_Follow")));
-        }
+        } else
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX + plugin.getConfigFileManager().getMsgConfigFile()
+                    .getString("GTACops_NoPerm") + "GTACops.user.cheat"));
     }
 
-    private ItemStack getCardProperties() {
+    public ItemStack getCardProperties() {
         ItemStack itemStack = new ItemStack(Material.getMaterial(plugin.getConfigFileManager().
                 getConfigFileConfig().getString("CheatCard.Type")));
         ItemMeta itemMeta = itemStack.getItemMeta();

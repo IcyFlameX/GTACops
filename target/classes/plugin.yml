@@ -3,6 +3,7 @@ author: IcyFlameX
 name: GTACops
 version: "2.3"
 api-version: "1.14"
+softdepend: [PlaceholderAPI]
 commands:
   gcops:
     description: Shows information regarding GTACops plugin

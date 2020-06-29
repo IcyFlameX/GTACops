@@ -12,17 +12,20 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class ListenerClass implements Listener {
 
@@ -73,14 +76,18 @@ public class ListenerClass implements Listener {
                     }
                     copsFeature.killCops(dead, playerCopsMap);
                 }
-                if (event.getDamager() instanceof PigZombie) {
+                if (event.getDamager() instanceof PigZombie && event.getDamager().getCustomName().equals(
+                        ChatColor.translateAlternateColorCodes('&',
+                                plugin.getConfigFileManager().getConfigFileConfig().getString("Cops_Name") + ""))) {
                     copsFeature.killCops(dead, playerCopsMap);
                     titleClass.sendTitle(dead);
                     rewardsPunish.givePunish(dead, false);
                     updateKillWant.resetKillWant(dead);
                 }
             }
-        } else if (event.getEntity() instanceof PigZombie) {
+        } else if (event.getEntity() instanceof PigZombie && event.getEntity().getCustomName().equals(
+                ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfigFileManager().getConfigFileConfig().getString("Cops_Name") + ""))) {
             if (event.getDamager() instanceof Player) {
                 if (((PigZombie) event.getEntity()).getHealth() <= event.getFinalDamage()) {
                     Player killer = (Player) event.getDamager();
@@ -88,6 +95,19 @@ public class ListenerClass implements Listener {
                     rewardsPunish.giveReward(killer, null, false);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onDeathEntitiy(EntityDeathEvent event) {
+        if (event.getEntity() instanceof PigZombie && event.getEntity().getCustomName().equals(
+                ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfigFileManager().getConfigFileConfig().getString("Cops_Name") + ""))) {
+            event.getDrops().clear();
+            int chance = plugin.getConfigFileManager().getConfigFileConfig().getInt("CheatCard.Chance");
+            Random random = new Random();
+            if (random.nextInt(101) <= chance)
+                event.getDrops().add(cheatCard.getCardProperties());
         }
     }
 
@@ -104,7 +124,7 @@ public class ListenerClass implements Listener {
                     if (player.hasPermission("GTACops.user.track") || player.hasPermission("GTACops.admin"))
                         tracker.trackPlayerDown(player);
                     else
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().getMsgConfigFile()
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX + plugin.getConfigFileManager().getMsgConfigFile()
                                 .getString("GTACops_NoPerm") + "GTACops.user.track"));
                     player.closeInventory();
                 } else if (event.getSlot() == 8)
@@ -126,11 +146,16 @@ public class ListenerClass implements Listener {
         ItemStack item = event.getItem();
         if (item != null && item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',
                 plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_Gui.MainPanel.Compass.Name") + ""))) {
-            if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK))
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX
-                        + plugin.getConfigFileManager().
-                        getMsgConfigFile().getString("Track_Player_Dist") + tracker.getDistOfNearestWanted(player)));
-            else if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
+                if (tracker.getDistOfNearestWanted(player) != -1)
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX
+                            + plugin.getConfigFileManager().
+                            getMsgConfigFile().getString("Track_Player_Dist") + tracker.getDistOfNearestWanted(player)));
+                else
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX
+                            + plugin.getConfigFileManager().
+                            getMsgConfigFile().getString("Track_Again")));
+            } else if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX
                         + plugin.getConfigFileManager().
                         getMsgConfigFile().getString("Track_NoLonger")));

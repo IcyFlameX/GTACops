@@ -1,5 +1,6 @@
 package me.IcyFlameX.GTACops.mechanics;
 
+import me.IcyFlameX.GTACops.api.FetchDetails;
 import me.IcyFlameX.GTACops.main.Main;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
 import org.bukkit.Bukkit;
@@ -15,11 +16,13 @@ import java.util.HashMap;
 
 public class Tracker {
     private Main plugin;
+    private FetchDetails fetchDetails;
     private HashMap<Player, MinPlayer> hashMap;
     private boolean check = false;
 
     public Tracker(Main plugin) {
         this.plugin = plugin;
+        fetchDetails = new FetchDetails(this.plugin);
         hashMap = new HashMap<Player, MinPlayer>();
     }
 
@@ -75,7 +78,7 @@ public class Tracker {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (sender.getWorld() == player.getWorld())
                 if (sender.getLocation().distance(player.getLocation()) <= min) {
-                    if (!player.equals(sender)) {
+                    if (!player.equals(sender) && fetchDetails.getWantLvl(player) != 0) {
                         min = (int) sender.getLocation().distance(player.getLocation());
                         find = player;
                     }
@@ -89,7 +92,7 @@ public class Tracker {
         Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
             public void run() {
                 for (Player player : hashMap.keySet()) {
-                    if (player != null) {
+                    if (player != null && hashMap.get(player).getPlayer() != null) {
                         player.setCompassTarget(hashMap.get(player).getPlayer().getLocation());
                     }
                 }
@@ -99,9 +102,9 @@ public class Tracker {
 
     public void trackPlayerDown(Player sender) {
         findNearestWanted(sender);
-        if (hashMap.get(sender).getPlayer() == null)
+        if (!hashMap.containsKey(sender) || hashMap.get(sender).getPlayer() == null || hashMap.get(sender) == null)
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.TITLE +
-                    plugin.getConfigFileManager().getMsgConfigFile().getString("Not_Online") + ""));
+                    plugin.getConfigFileManager().getMsgConfigFile().getString("Not_Online_Wanted") + ""));
         else {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.HEADER));
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager().
@@ -116,7 +119,9 @@ public class Tracker {
     }
 
     public int getDistOfNearestWanted(Player player) {
-        return (int) player.getLocation().distance(hashMap.get(player).getPlayer().getLocation());
+        if (hashMap.containsKey(player) && hashMap.get(player) != null && hashMap.get(player).getPlayer()!=null)
+            return (int) player.getLocation().distance(hashMap.get(player).getPlayer().getLocation());
+        return -1;
     }
 
     public void stopTracking(Player sender) {

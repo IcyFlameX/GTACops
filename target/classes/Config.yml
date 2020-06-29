@@ -204,11 +204,11 @@ Cops_Strength:
 #The Cop will die and the killer will escape.
 #Given Time Values are in seconds
 Cops_Time:
-  Level1: 60
-  Level2: 60
-  Level3: 60
-  Level4: 60
-  Level5: 60
+  Level1: 10
+  Level2: 15
+  Level3: 20
+  Level4: 25
+  Level5: 25
 
 #---------------------------------------------------------#
 #                            PayFine
@@ -331,3 +331,4 @@ CheatCard:
   Lore:
     - "&dRight Click It To Remove All Cops."
     - "&6Resets Your WantedLevel to 0."
+  Chance: 50

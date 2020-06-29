@@ -1,6 +1,8 @@
 package me.IcyFlameX.GTACops.main;
 
+import me.IcyFlameX.GTACops.api.MetricsLite;
 import me.IcyFlameX.GTACops.dataManager.ConfigFileManager;
+import me.IcyFlameX.GTACops.dependency.PAPIDependency;
 import me.IcyFlameX.GTACops.dependency.VaultDependency;
 import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
 import me.IcyFlameX.GTACops.mechanics.CopsFeature;
@@ -20,12 +22,19 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        int pluginID = 2017;
+        new MetricsLite(this, pluginID);
         if (!new VaultDependency(Main.this).setupEconomy()) {
             getLogger().info("-----------------[GTACops]-----------------");
-            getLogger().log(Level.SEVERE, "Vault Not Found, Disabling plugin. Install Vault!");
+            getLogger().log(Level.SEVERE, "Vault Not Found or Essentials Missing, Disabling plugin. Install Vault/Essentials!");
             getLogger().info("-----------------[GTACops]-----------------");
             getPluginLoader().disablePlugin(this);
         } else {
+            if (!new PAPIDependency(Main.this).isPAPIinstalled()) {
+                getLogger().info("-----------------[GTACops]-----------------");
+                getLogger().log(Level.WARNING, "PlaceHolderAPI Not Found, PlaceHolders Won't Work. Install PlaceHolderAPI!");
+                getLogger().info("-----------------[GTACops]-----------------");
+            }
             setConfigFileManager(new ConfigFileManager(this));
             this.getCommand("gcops").setExecutor(new CommandManager(this));
             this.getServer().getPluginManager().registerEvents(new ListenerClass(this), this);
@@ -46,13 +55,13 @@ public final class Main extends JavaPlugin implements Listener {
         return configFileManager;
     }
 
-    public static ConfigFileManager getApiCongManager() {
-        return configFileManager;
-    }
-
     public void setConfigFileManager(ConfigFileManager configFileManager) {
         Main.configFileManager = configFileManager;
     }
 
+    //For PAPI only
+    public static ConfigFileManager getApiCongManager() {
+        return configFileManager;
+    }
 
 }

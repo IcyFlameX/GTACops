@@ -17,29 +17,33 @@ public class PayFine {
     }
 
     public void reduceWantLevel(Player player, boolean flag, int signFine) {
-        if (fetchDetails.getWantLvl(player) == 0)
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
-                    plugin.getConfigFileManager().getMsgConfigFile().getString("PayFine_NotWanted")));
-        else {
-            if (!VaultDependency.getEconomy().hasAccount(player))
-                VaultDependency.getEconomy().createPlayerAccount(player);
-            int wantLvL = fetchDetails.getWantLvl(player);
-            int fine = flag ? plugin.getConfigFileManager().getConfigFileConfig()
-                    .getInt("Money_Deduction.Level" + wantLvL) : signFine;
-            if (VaultDependency.getEconomy().getBalance(player) >= fine) {
-                EconomyResponse economyResponse = VaultDependency.getEconomy().withdrawPlayer(player, fine);
-                if (economyResponse.transactionSuccess()) {
-                    fetchDetails.setWantLvL(player, fetchDetails.getWantLvl(player) - 1);
-                    fetchDetails.setKills(player, plugin.getConfigFileManager().getConfigFileConfig().getInt(
-                            "Kills_Per_WantedLevel.Level" + (wantLvL - 1)));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
-                            plugin.getConfigFileManager().getMsgConfigFile().getString("Current_Wanted_LvL") + fetchDetails.getWantLvlStars(player)));
+        if (player.hasPermission("GTACops.user.payfine") || player.hasPermission("GTACops.admin")) {
+            if (fetchDetails.getWantLvl(player) == 0)
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                        plugin.getConfigFileManager().getMsgConfigFile().getString("PayFine_NotWanted")));
+            else {
+                if (!VaultDependency.getEconomy().hasAccount(player))
+                    VaultDependency.getEconomy().createPlayerAccount(player);
+                int wantLvL = fetchDetails.getWantLvl(player);
+                int fine = flag ? plugin.getConfigFileManager().getConfigFileConfig()
+                        .getInt("Money_Deduction.Level" + wantLvL) : signFine;
+                if (VaultDependency.getEconomy().getBalance(player) >= fine) {
+                    EconomyResponse economyResponse = VaultDependency.getEconomy().withdrawPlayer(player, fine);
+                    if (economyResponse.transactionSuccess()) {
+                        fetchDetails.setWantLvL(player, fetchDetails.getWantLvl(player) - 1);
+                        fetchDetails.setKills(player, plugin.getConfigFileManager().getConfigFileConfig().getInt(
+                                "Kills_Per_WantedLevel.Level" + (wantLvL - 1)));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                                plugin.getConfigFileManager().getMsgConfigFile().getString("Current_Wanted_LvL") + fetchDetails.getWantLvlStars(player)));
+                    } else
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                                plugin.getConfigFileManager().getMsgConfigFile().getString("TransacFailed")));
                 } else
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
-                            plugin.getConfigFileManager().getMsgConfigFile().getString("TransacFailed")));
-            } else
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
-                        plugin.getConfigFileManager().getMsgConfigFile().getString("PayFine_NoMoney")));
-        }
+                            plugin.getConfigFileManager().getMsgConfigFile().getString("PayFine_NoMoney")));
+            }
+        } else
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                    plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_NoPerm") + "GTACops.user.payfine"));
     }
 }
