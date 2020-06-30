@@ -12,7 +12,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -144,7 +143,7 @@ public class ListenerClass implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack item = event.getItem();
-        if (item != null && item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',
+        if (item != null && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&',
                 plugin.getConfigFileManager().getMsgConfigFile().getString("GTACops_Gui.MainPanel.Compass.Name") + ""))) {
             if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
                 if (tracker.getDistOfNearestWanted(player) != -1)
@@ -170,8 +169,9 @@ public class ListenerClass implements Listener {
                         && sign.getLine(1).startsWith("$") && sign.getLine(1).substring(1).matches("[0-9]+"))
                     customSign.deductFromPlayer(sign, player);
             }
-            if (item != null && item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "" +
-                    plugin.getConfigFileManager().getConfigFileConfig().getString("CheatCard.Name"))))
+            if (item != null && item.getItemMeta().hasDisplayName() &&
+                    item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "" +
+                            plugin.getConfigFileManager().getConfigFileConfig().getString("CheatCard.Name"))))
                 cheatCard.useCheatCard(event.getPlayer());
         }
     }

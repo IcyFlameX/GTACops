@@ -8,7 +8,7 @@
 #    \_____|  |_/_/    \_\_____\___/| .__/|___/
 #                                   | |
 #                                   |_|
-#  Version: 2.3
+#  Version: 2.3.1
 #  Author: IcyFlameX
 #  Spigot: https://www.spigotmc.org/resources/gtacops.39090/
 #  Discord: https://discordapp.com/invite/XpZ4Dun
@@ -94,7 +94,8 @@ Total_Cops:
 #          Cop's Armor
 #**************************#
 #Link for all the Materials in Minecraft[ MAKE SURE YOU COPY PASTE SAME]
-#https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#For Version 1.12 - https://neolumia.github.io/spigot-docs/1.12.2/org/bukkit/Material.html
+#For Version 1.13 and 1.13+ - https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 #Weapon to be given to the Cops at each particular wanted level of the player
 Cops_Weapon:
   Level1: GOLDEN_SWORD
