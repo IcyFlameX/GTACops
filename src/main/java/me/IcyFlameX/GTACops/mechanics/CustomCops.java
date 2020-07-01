@@ -1,6 +1,5 @@
 package me.IcyFlameX.GTACops.mechanics;
 
-
 import me.IcyFlameX.GTACops.main.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Objects;
 
-public class CustomCops {
+public class CustomCops  {
 
     private Main plugin;
 
