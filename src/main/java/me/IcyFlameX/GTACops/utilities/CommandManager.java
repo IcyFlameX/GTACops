@@ -87,8 +87,7 @@ public final class CommandManager implements CommandExecutor {
                                 changeStats(player, new String[]{args[1], "0"});
                             } else
                                 noPermAdmin(player);
-                        }
-                        else if ("check".equalsIgnoreCase(args[0])) {
+                        } else if ("check".equalsIgnoreCase(args[0])) {
                             if (player.hasPermission("GTACops.admin")) {
                                 if (Bukkit.getPlayer(args[1]) != null) {
                                     Player search = Bukkit.getPlayer(args[1]);

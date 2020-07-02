@@ -7,6 +7,7 @@ import me.IcyFlameX.GTACops.dependency.VaultDependency;
 import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
 import me.IcyFlameX.GTACops.mechanics.CopsFeature;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
+import me.IcyFlameX.GTACops.utilities.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,37 +19,58 @@ public final class Main extends JavaPlugin implements Listener {
     //To maintain only a single copy of the ConfigFileManager object
     // So as to reflect changes in every class
     private static ConfigFileManager configFileManager;
-    private CopsFeature copsFeature;
 
     @Override
     public void onEnable() {
-        int pluginID = 2017;
-        new MetricsLite(this, pluginID);
-        if (!new VaultDependency(Main.this).setupEconomy()) {
-            getLogger().info("-----------------[GTACops]-----------------");
-            getLogger().log(Level.SEVERE, "Vault Not Found or Essentials Missing, Disabling plugin. Install Vault/Essentials!");
-            getLogger().info("-----------------[GTACops]-----------------");
-            getPluginLoader().disablePlugin(this);
-        } else {
-            if (!new PAPIDependency(Main.this).isPAPIinstalled()) {
-                getLogger().info("-----------------[GTACops]-----------------");
-                getLogger().log(Level.WARNING, "PlaceHolderAPI Not Found, PlaceHolders Won't Work. Install PlaceHolderAPI!");
-                getLogger().info("-----------------[GTACops]-----------------");
-            }
+        metricsChecker();
+        if (checkDependency()) {
+            checkUpdate();
             setConfigFileManager(new ConfigFileManager(this));
             this.getCommand("gcops").setExecutor(new CommandManager(this));
             this.getServer().getPluginManager().registerEvents(new ListenerClass(this), this);
             super.onEnable();
         }
+
     }
 
     @Override
     public void onDisable() {
-        copsFeature = new CopsFeature(this);
+        CopsFeature copsFeature = new CopsFeature(this);
         super.onDisable();
-        for (Player player : ListenerClass.playerCopsMap.keySet()) {
-            copsFeature.killCops(player, ListenerClass.playerCopsMap);
+        if (ListenerClass.playerCopsMap != null)
+            for (Player player : ListenerClass.playerCopsMap.keySet()) {
+                copsFeature.killCops(player, ListenerClass.playerCopsMap);
+            }
+    }
+
+    private void metricsChecker() {
+        int pluginID = 2017;
+        new MetricsLite(this, pluginID);
+    }
+
+    private boolean checkDependency() {
+        if (!new VaultDependency(Main.this).setupEconomy()) {
+            getLogger().info("-----------------[GTACops]-----------------");
+            getLogger().log(Level.SEVERE, "Vault Not Found or Essentials Missing, Disabling plugin. Install Vault/Essentials!");
+            getLogger().info("-----------------[GTACops]-----------------");
+            getPluginLoader().disablePlugin(this);
+            return false;
+        } else if (!new PAPIDependency(Main.this).isPAPIinstalled()) {
+            getLogger().info("-----------------[GTACops]-----------------");
+            getLogger().log(Level.WARNING, "PlaceHolderAPI Not Found, PlaceHolders Won't Work. Install PlaceHolderAPI!");
+            getLogger().info("-----------------[GTACops]-----------------");
         }
+        return true;
+    }
+
+    private void checkUpdate() {
+        new UpdateChecker(this, 39090).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                getLogger().info("There is not a new update available.");
+            } else {
+                getLogger().info("There is a new update available, v" + version);
+            }
+        });
     }
 
     public ConfigFileManager getConfigFileManager() {

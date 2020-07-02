@@ -3,7 +3,6 @@ package me.IcyFlameX.GTACops.mechanics;
 import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
 import me.IcyFlameX.GTACops.main.Main;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
-import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

@@ -58,7 +58,7 @@ public class ListenerClass implements Listener {
     public void onDamageEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player) {
             Player dead = (Player) event.getEntity();
-            if (dead.getHealth() <= event.getDamage()) {
+            if (dead.getHealth() <= event.getFinalDamage()) {
                 if (event.getDamager() instanceof Player) {
                     Player killer = (Player) event.getDamager();
                     rewardsPunish.giveReward(killer, dead, true);
