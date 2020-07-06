@@ -7,6 +7,8 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 public class PayFine {
     private Main plugin;
     private FetchDetails fetchDetails;
@@ -35,6 +37,9 @@ public class PayFine {
                                 "Kills_Per_WantedLevel.Level" + (wantLvL - 1)));
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
                                 plugin.getConfigFileManager().getMsgConfigFile().getString("Current_Wanted_LvL") + fetchDetails.getWantLvlStars(player)));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                                Objects.requireNonNull(plugin.getConfigFileManager().getMsgConfigFile().getString("PayFine_Success")).
+                                        replaceAll("%money%", String.valueOf(fine))));
                     } else
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
                                 plugin.getConfigFileManager().getMsgConfigFile().getString("TransacFailed")));

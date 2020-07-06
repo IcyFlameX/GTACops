@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GUIClass {
@@ -28,8 +29,10 @@ public class GUIClass {
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "" + msgsFile.getString("GTACops_Gui.MainPanel.Fine.Name")));
-        meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&', "" + msgsFile.getString("GTACops_Gui.MainPanel.Fine.Lore1")),
-                ChatColor.translateAlternateColorCodes('&', "" + msgsFile.getString("GTACops_Gui.MainPanel.Fine.Lore2"))));
+        ArrayList<String> payFineList = new ArrayList<String>();
+        for (String msg : plugin.getConfigFileManager().getMsgConfigFile().getStringList("GTACops_Gui.MainPanel.Fine.Lore"))
+            payFineList.add(ChatColor.translateAlternateColorCodes('&', msg));
+        meta.setLore(payFineList);
         item.setItemMeta(meta);
         inventory.setItem(0, item);
 
@@ -50,7 +53,7 @@ public class GUIClass {
     }
 
     public void openGUI() {
-            createGTACopsPanel();
+        createGTACopsPanel();
     }
 
     public Inventory getInventory() {

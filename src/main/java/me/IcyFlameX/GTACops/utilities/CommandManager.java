@@ -47,11 +47,14 @@ public final class CommandManager implements CommandExecutor {
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops topkills : " + msg.getString("gcops_topkills")));
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops topwant : " + msg.getString("gcops_topwant")));
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops panel : " + msg.getString("gcops_panel")));
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops check <PlayerName> : " + msg.getString("gcops_check")));
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops set <PlayerName> <Number> : " + msg.getString("gcops_set")));
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops reset <PlayerName> : " + msg.getString("gcops_reset")));
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops givecheat <PlayerName> <Number> : " + msg.getString("gcops_cheat")));
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops reload : " + msg.getString("gcops_reload")));
+                            if (player.hasPermission("GTACops.admin")) {
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops check <PlayerName> : " + msg.getString("gcops_check")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops set <PlayerName> <Number> : " + msg.getString("gcops_set")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops reset <PlayerName> : " + msg.getString("gcops_reset")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops givecheat <PlayerName> <Number> : " + msg.getString("gcops_cheat")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops checkupdate : " + msg.getString("gcops_update")));
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d/gcops reload : " + msg.getString("gcops_reload")));
+                            }
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.FOOTER));
                         } else if ("kills".equalsIgnoreCase(args[0]))
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', PREFIX +
@@ -69,6 +72,11 @@ public final class CommandManager implements CommandExecutor {
                             GUIClass guiClass = new GUIClass(plugin);
                             guiClass.openGUI();
                             player.openInventory(guiClass.getInventory());
+                        } else if ("checkupdate".equalsIgnoreCase(args[0])) {
+                            if (player.hasPermission("GTACops.admin"))
+                                new UpdateChecker(plugin, 39090, false, player);
+                            else
+                                return noPermAdmin(player);
                         } else if ("reload".equalsIgnoreCase(args[0])) {
                             if (player.hasPermission("GTACops.admin")) {
                                 plugin.getConfigFileManager().reloadConfig();
