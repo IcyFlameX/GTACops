@@ -25,9 +25,7 @@ public class RewardsPunish {
             dead = toBeRewarded;
         }
         if (plugin.getConfigFileManager().getConfigFileConfig().getBoolean(category)) {
-            System.out.println(1);
             if (fetchDetails.getWantLvl(dead) > 0) {
-                System.out.println(2);
                 for (String commands : plugin.getConfigFileManager().getConfigFileConfig().getStringList(from + ".Level"
                         + fetchDetails.getWantLvl(dead)))
                     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), commands.replaceAll("%player%", toBeRewarded.getName()));
@@ -46,9 +44,7 @@ public class RewardsPunish {
             from = "Punish_KillByCops";
         }
         if (plugin.getConfigFileManager().getConfigFileConfig().getBoolean(category)) {
-            System.out.println(1 + "PUNISHMENT");
             if (fetchDetails.getWantLvl(dead) > 0) {
-                System.out.println(2 + "PUNISHMENT");
                 for (String commands : plugin.getConfigFileManager().getConfigFileConfig().getStringList(from + ".Level"
                         + fetchDetails.getWantLvl(dead)))
                     Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), commands.replaceAll("%player%", dead.getName()));
