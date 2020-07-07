@@ -35,6 +35,8 @@ public class PayFine {
                                 "Kills_Per_WantedLevel.Level" + (wantLvL - 1)));
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
                                 plugin.getConfigFileManager().getMsgConfigFile().getString("Current_Wanted_LvL") + fetchDetails.getWantLvlStars(player)));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
+                                plugin.getConfigFileManager().getMsgConfigFile().getString("PayFine_Success.Level" + wantLvL)));
                     } else
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
                                 plugin.getConfigFileManager().getMsgConfigFile().getString("TransacFailed")));

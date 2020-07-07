@@ -64,13 +64,7 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     private void checkUpdate() {
-        new UpdateChecker(this, 39090).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                getLogger().info("There is not a new update available.");
-            } else {
-                getLogger().info("There is a new update available, v" + version);
-            }
-        });
+        new UpdateChecker(this, 39090, true, null);
     }
 
     public ConfigFileManager getConfigFileManager() {
