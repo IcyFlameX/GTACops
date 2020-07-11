@@ -8,7 +8,7 @@
 #    \_____|  |_/_/    \_\_____\___/| .__/|___/
 #                                   | |
 #                                   |_|
-#  Version: 2.3.1
+#  Version: 2.3.2
 #  Author: IcyFlameX
 #  Spigot: https://www.spigotmc.org/resources/gtacops.39090/
 #  Discord: https://discordapp.com/invite/XpZ4Dun
@@ -35,6 +35,9 @@ Stats_Change_Admin: "&dYour &6stats has been changed by &dstaff."
 PayFine_NoMoney: "&6You &ddo not&6 have enough money!"
 #To notify the player that he is not wanted now.
 PayFine_NotWanted: "&6You are &dnot&6 wanted now."
+#To notify player how much money has been deducted from them.
+PayFine_Success: "&d$%money% &6has been deducted from you."
+
 #To notify the player in case transaction does not happen [Vault Issue - To be reported to admin]
 TransacFailed: "&6Could Not Do &dTransaction&6 due to issues."
 
@@ -64,8 +67,13 @@ GTACops_Gui:
     Title: "&d&lMain&6&lPanel"
     Fine:
       Name:  "&3&lPayFine"
-      Lore1: "&f>> &6Pay fine to the cops"
-      Lore2: "&f>> &6Reduce your wanted level and kills"
+      Lore:
+        - "&f>> &6Pay fine to the cops and reduce your wanted level."
+        - "&f>> &dLevel &65 &f -> &dLevel &d4 &6: $&d5000"
+        - "&f>> &dLevel &64 &f -> &dLevel &d3 &6: $&d3000"
+        - "&f>> &dLevel &63 &f -> &dLevel &d2 &6: $&d1500"
+        - "&f>> &dLevel &62 &f -> &dLevel &d1 &6: $&d1000"
+        - "&f>> &dLevel &61 &f -> &dLevel &d0 &6: $&d500"
     Compass:
       Name: "&4&lTracker"
       Lore1: "&f>> &6Track Wanted Players"
@@ -224,10 +232,16 @@ gcops_set: "&6Admin : Sets the player's wanted level to the specified number."
 gcops_reset: "&6Admin : Sets the player's wanted level to 0"
 #info for /gcops cheat
 gcops_cheat: "&6Admin : Gives the player specified number of cheatcard."
+#info for /gcops update
+gcops_update: "&6Admin : Checks for newer version of the plugin."
 #info for /gcops reload
 gcops_reload: "&6Admin : Reload the plugin"
 #-------------
 #To be displayed when player does not have specific permission
 GTACops_NoPerm: "&6&cYou don't have the permission &d"
+#Message to be displayed when admin types /gcops checkupdate and there is a new version available
+GTACops_NewVersionFound: "&6New Version has been found in spigot ! Latest Version is : &d"
+#Message to be displayed when admin types /gcops checkupdate and there is no new version available
+GTACops_NoNewVersion: "&6You are running the latest version of the plugin!"
 #To be displayed to admin when plugin reloads after doing /gcops reload
 GTACops_Reload_comm: "&6GTACops reloaded!"

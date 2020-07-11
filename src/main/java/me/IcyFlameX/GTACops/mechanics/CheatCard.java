@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CheatCard {
 
@@ -50,11 +51,11 @@ public class CheatCard {
     }
 
     public ItemStack getCardProperties() {
-        ItemStack itemStack = new ItemStack(Material.getMaterial(plugin.getConfigFileManager().
-                getConfigFileConfig().getString("CheatCard.Type")));
+        ItemStack itemStack = new ItemStack(Objects.requireNonNull(Material.getMaterial(Objects.requireNonNull(plugin.getConfigFileManager().
+                getConfigFileConfig().getString("CheatCard.Type")))));
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', plugin.getConfigFileManager()
-                .getConfigFileConfig().getString("CheatCard.Name")));
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfigFileManager()
+                .getConfigFileConfig().getString("CheatCard.Name"))));
         List<String> list = new ArrayList<String>();
         for (String msg : plugin.getConfigFileManager().getConfigFileConfig().getStringList("CheatCard.Lore"))
             list.add(ChatColor.translateAlternateColorCodes('&', msg));
