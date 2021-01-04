@@ -1,0 +1,335 @@
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+#
+#     _____ _______       _____
+#    / ____|__   __|/\   / ____|
+#   | |  __   | |  /  \ | |     ___  _ __  ___
+#   | | |_ |  | | / /\ \| |    / _ \| '_ \/ __|
+#   | |__| |  | |/ ____ \ |___| (_) | |_) \__ \
+#    \_____|  |_/_/    \_\_____\___/| .__/|___/
+#                                   | |
+#                                   |_|
+#  Version: 2.3.3
+#  Author: IcyFlameX
+#  Spigot: https://www.spigotmc.org/resources/gtacops.39090/
+#  Discord: https://discordapp.com/invite/XpZ4Dun
+#  Configuration File
+#
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+
+#---------------------------------------------------------#
+#                           ENABLE
+#---------------------------------------------------------#
+#Set this to true, if you want to enable punishment for a player who dies from a cops.
+Enable_Punish_Cops: false
+#Set this to true, if you want to enable punishment for a player who dies from another player.
+Enable_Punish_Player: false
+#Set this to true, if you want to enable rewards for killing Wanted Players.
+Enable_Rewards_Player: false
+#Set this to true, if you want to enable rewards for killing Cops.
+Enable_Rewards_Cops: false
+#Set this to true, if you  want to enable Title & SubTitle.
+Enable_Title: false
+#Set this to true, if you want to broadcast message whenever people reaches a wanted level
+Enable_Broadcast: false
+
+#---------------------------------------------------------#
+#                         STARS
+#---------------------------------------------------------#
+#This is the place where you can change how the logo/star looks
+#Put the logo you want to display as stars
+Stars_Logo: "✪"
+#Color of Stars for wanted level achieved out of given 5
+Stars_FillColor: "&4"
+#Color of Starts for wanted level not achieved out of 5
+Stars_EmptyColor: "&f"
+
+#---------------------------------------------------#
+#               Titles and Subtitles
+#            Time To Be Configured Here
+#       Set Enable_Title in Config.yml -> True
+#---------------------------------------------------#
+#StayTime --> Total amount of time, it will stay on screen for in seconds.
+#FadeIn --> Total amount of time, it will take for fade-in animation in sec.
+#FadeOut --> Total amount of time, it will take for fade-out animation in sec.
+TitleStayTime: 2
+TitleFadeInTime: 2
+TitleFadeOutTime: 2
+
+#---------------------------------------------------------#
+#                           MURDERS
+#---------------------------------------------------------#
+
+#Total number of kills required for each player to reach the specific wanted level.
+#Example: To Reach Wanted Level 3, player would require total of 3 kills.
+Kills_Per_WantedLevel:
+  Level1: 1
+  Level2: 2
+  Level3: 3
+  Level4: 4
+  Level5: 5
+
+#---------------------------------------------------------#
+#                            Cops
+#                        Configuration
+#---------------------------------------------------------#
+
+#**************************#
+#          Name
+#**************************#
+#Sets the name of the Zombie Pigman
+Cops_Name: "&4&lCops"
+
+#**************************#
+#          TotalNumber
+#**************************#
+#Number of Cops to be spawned whenever player reaches a certain wanted level.
+Total_Cops:
+  Level1: 1
+  Level2: 2
+  Level3: 3
+  Level4: 4
+  Level5: 5
+
+#**************************#
+#          Cop's Armor
+#**************************#
+#Link for all the Materials in Minecraft[ MAKE SURE YOU COPY PASTE SAME]
+#For Version 1.11 & 1.12 - https://neolumia.github.io/spigot-docs/1.12.2/org/bukkit/Material.html
+#For Version 1.13 and 1.13+ - https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#Weapon to be given to the Cops at each particular wanted level of the player
+Cops_Weapon:
+  Level1: GOLDEN_SWORD
+  Level2: STONE_SWORD
+  Level3: IRON_SWORD
+  Level4: IRON_SWORD
+  Level5: DIAMOND_SWORD
+
+#Helmet to be given to the Cops at each particular wanted level of the player
+Cops_Helmet:
+  Level1: GOLDEN_HELMET
+  Level2: CHAINMAIL_HELMET
+  Level3: CHAINMAIL_HELMET
+  Level4: IRON_HELMET
+  Level5: DIAMOND_HELMET
+
+#Chestplate to be given to the Cops at each particular wanted level of the player
+Cops_Chestplate:
+  Level1: GOLDEN_CHESTPLATE
+  Level2: CHAINMAIL_CHESTPLATE
+  Level3: IRON_CHESTPLATE
+  Level4: IRON_CHESTPLATE
+  Level5: DIAMOND_CHESTPLATE
+
+#Leggings to be given to the Cops at each particular wanted level of the player
+Cops_Leggings:
+  Level1: GOLDEN_LEGGINGS
+  Level2: IRON_LEGGINGS
+  Level3: CHAINMAIL_LEGGINGS
+  Level4: IRON_LEGGINGS
+  Level5: DIAMOND_LEGGINGS
+
+#Boots to be worn by the Cops
+Cops_Boots:
+  Level1: GOLDEN_BOOTS
+  Level2: CHAINMAIL_BOOTS
+  Level3: IRON_BOOTS
+  Level4: DIAMOND_BOOTS
+  Level5: DIAMOND_BOOTS
+
+#**************************#
+#          CopsHealth
+#**************************#
+#Set the maximum possible health of the cops.
+#Maximum Cops Health cannot go beyond 1024.
+Cops_MaxHealth: 100
+#TotalHealth of each Cop spawned at specific wanted Level.
+#Example : For Wanted Level1, Cops will have health of 20, For Level 3 Cops will have health of 30
+#Note: the health you set for the cops for each wanted level should not
+#Exceed the MaxHealth you have set, or else there will be errors.
+Cops_Health:
+  Level1: 20
+  Level2: 25
+  Level3: 30
+  Level4: 35
+  Level5: 40
+
+#**************************#
+#          CopsSpeed
+#**************************#
+#Give Extra Speed to the cops and set the time for which extra speed will remain.
+#Speed is due to SpeedPotion Effect
+#Given Duration Values are in seconds
+#Example For Players with wanted level 1, cops will have speed potion 1 effect and for 5 seconds.
+#Example2 For Players with wanted level 4, cops will have speed potion 4 effect and for 20 seconds.
+Cops_Speed:
+  Intensity:
+    Level1: 1
+    Level2: 2
+    Level3: 3
+    Level4: 4
+    Level5: 5
+  Duration:
+    Level1: 5
+    Level2: 10
+    Level3: 15
+    Level4: 20
+    Level5: 25
+
+#**************************#
+#       CopsStrength
+#**************************#
+#Give Extra Strength to the cops and set the time for which extra strength will remain.
+#Strength is due to StrengthPotion Effect
+#Given Duration Values are in seconds
+#Example For Players with wanted level 1, cops will have strength potion 1 effect and for 5 seconds.
+#Example2 For Players with wanted level 4, cops will have strength potion 4 effect and for 20 seconds.
+Cops_Strength:
+  Intensity:
+    Level1: 1
+    Level2: 2
+    Level3: 3
+    Level4: 4
+    Level5: 5
+  Duration:
+    Level1: 5
+    Level2: 10
+    Level3: 15
+    Level4: 20
+    Level5: 25
+
+#**************************#
+#       CopsDeathTime
+#**************************#
+#Time after which cops spawned will die.
+#Suppose a cop chases a killer but is unable to kill the player so after certain period of the time
+#The Cop will die and the killer will escape.
+#Given Time Values are in seconds
+Cops_Time:
+  Level1: 10
+  Level2: 15
+  Level3: 20
+  Level4: 25
+  Level5: 25
+
+#---------------------------------------------------------#
+#                            PayFine
+#---------------------------------------------------------#
+#Money required to Decrease Player's WantedLevel by 1 from that specific level
+#Example To reduce wanted level from 5 to 4, player has to pay 5000
+#Example To reduce wanted level from 1 to 0 (No wanted level), player has to pay 500
+Money_Deduction:
+  Level1: 500
+  Level2: 1000
+  Level3: 1500
+  Level4: 3000
+  Level5: 5000
+
+
+#---------------------------------------------------------#
+#                          Punishment
+#---------------------------------------------------------#
+#***************************************************#
+#   Punish For Players when they die due to Cops
+#        Punishments To Be Configured here
+#   Set Enable_Punish_Cops in Config.yml -> True
+#**************************************************#
+#Punishment he gets, depends on the wanted level he had just before dying.
+#Example If he had level 4 before dying, those will be the consequences mentioned below
+Punish_KillByCops:
+  Level1:
+    - eco take %player% 200
+  Level2:
+    - eco take %player% 400
+  Level3:
+    - eco take %player% 600
+  Level4:
+    - eco take %player% 800
+  Level5:
+    - eco take %player% 1000
+
+#***************************************************#
+#   Punish For Players when they die due to Player
+#       Punishments To Be Configured here
+#   Set Enable_Punish_Player in Config.yml -> True
+#**************************************************#
+#Punishment he gets depends on the wanted level he had just before dying.
+#Example If he had level 4 before dying, those will be the consequences mentioned below
+Punish_KillByPlayer:
+  Level1:
+    - eco take %player% 1500
+  Level2:
+    - eco take %player% 2500
+  Level3:
+    - eco take %player% 3500
+  Level4:
+    - eco take %player% 4500
+  Level5:
+    - eco take %player% 5500
+
+#---------------------------------------------------------#
+#                            Rewards
+#---------------------------------------------------------#
+
+#***************************************************#
+#    Rewards For Killing Players with Wanted Level
+#       Rewards to be Configured here
+#   Set Enable_Rewards_Players in Config.yml -> True
+#***************************************************#
+#Rewards given to a player for killing a player who has a wanted level.
+#Each level represents the death player's wanted level.
+#For Example when he kills a player who had wanted level 3, he player gets $3500 and 84 diamonds.
+Rewards_KillPlayer:
+  Level1:
+    - eco give %player% 1500
+    - give %player% diamond 64
+  Level2:
+    - eco give %player% 2500
+    - give %player% diamond 74
+  Level3:
+    - eco give %player% 3500
+    - give %player% diamond 84
+  Level4:
+    - eco give %player% 4500
+    - give %player% diamond 94
+  Level5:
+    - eco give %player% 5500
+    - give %player% diamond 104
+
+#***************************************************#
+#           Rewards For Killing Cops
+#        Rewards to be Configured here
+#   Set Enable_Rewards_Cops in Config.yml -> True
+#***************************************************#
+#Rewards given to a player for killing a Cop.[Note: For Killing a Single Cop, you get this reward]
+#Rewards for the player for the wanted level he currently has
+#For Example when he kills a cop and he has wanted level 3 currently, he gets $40 and 3 dirts.
+Rewards_KillCops:
+  Level1:
+    - eco give %player% 20
+    - give %player% apple 1
+  Level2:
+    - eco give %player% 30
+    - give %player% sand 2
+  Level3:
+    - eco give %player% 40
+    - give %player% dirt 3
+  Level4:
+    - eco give %player% 50
+    - give %player% iron 4
+  Level5:
+    - eco give %player% 60
+    - give %player% gold 5
+
+#---------------------------------------------------------#
+#                          CheatCard
+#---------------------------------------------------------#
+#Link for all the Materials in Minecraft[ MAKE SURE YOU COPY PASTE SAME]
+#https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#Item Type for the CheatCard
+CheatCard:
+  Type: PAPER
+  Name: "&d&lLeaveMeAlone"
+  Lore:
+    - "&dRight Click It To Remove All Cops."
+    - "&6Resets Your WantedLevel to 0."
+  Chance: 50

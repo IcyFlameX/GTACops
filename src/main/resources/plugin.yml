@@ -1,0 +1,10 @@
+main: me.IcyFlameX.GTACops.main.Main
+author: IcyFlameX
+name: GTACops
+version: "2.3.3"
+api-version: "1.13"
+softdepend: [Vault,PlaceholderAPI]
+commands:
+  gcops:
+    description: Shows information regarding GTACops plugin
+    usage: /<command>
