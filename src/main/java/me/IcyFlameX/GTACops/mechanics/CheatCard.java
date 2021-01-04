@@ -1,6 +1,9 @@
 package me.IcyFlameX.GTACops.mechanics;
 
+<<<<<<< HEAD
 import me.IcyFlameX.GTACops.api.FetchDetails;
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
 import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
 import me.IcyFlameX.GTACops.main.Main;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
@@ -20,12 +23,18 @@ public class CheatCard {
 
     private Main plugin;
     private CopsFeature copsFeature;
+<<<<<<< HEAD
     private FetchDetails fetchDetails;
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
 
     public CheatCard(Main plugin) {
         this.plugin = plugin;
         copsFeature = new CopsFeature(this.plugin);
+<<<<<<< HEAD
         this.fetchDetails = new FetchDetails(this.plugin);
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
     }
 
     public void giveCheatCard(String playerName, int no) {
@@ -45,7 +54,10 @@ public class CheatCard {
                 copsFeature.killCops(player, ListenerClass.playerCopsMap);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX +
                         plugin.getConfigFileManager().getMsgConfigFile().getString("CheatCard.Usage") + ""));
+<<<<<<< HEAD
                 fetchDetails.setWantLvL(player,0);
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
             } else
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', CommandManager.PREFIX + plugin
                         .getConfigFileManager().getMsgConfigFile().getString("CheatCard.No_Follow")));
@@ -58,7 +70,10 @@ public class CheatCard {
         ItemStack itemStack = new ItemStack(Objects.requireNonNull(Material.getMaterial(Objects.requireNonNull(plugin.getConfigFileManager().
                 getConfigFileConfig().getString("CheatCard.Type")))));
         ItemMeta itemMeta = itemStack.getItemMeta();
+<<<<<<< HEAD
         assert itemMeta != null;
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
         itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfigFileManager()
                 .getConfigFileConfig().getString("CheatCard.Name"))));
         List<String> list = new ArrayList<String>();

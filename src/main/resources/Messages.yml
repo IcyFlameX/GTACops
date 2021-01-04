@@ -8,7 +8,11 @@
 #    \_____|  |_/_/    \_\_____\___/| .__/|___/
 #                                   | |
 #                                   |_|
+<<<<<<< HEAD
 #  Version: 2.3.3
+=======
+#  Version: 2.3.2
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
 #  Author: IcyFlameX
 #  Spigot: https://www.spigotmc.org/resources/gtacops.39090/
 #  Discord: https://discordapp.com/invite/XpZ4Dun
@@ -146,6 +150,7 @@ Rewards_KillPlayer:
 #For Example when he kills a cop and he has wanted level 3 currently, he gets $40 and 3 dirts.
 Rewards_KillCops:
   Level1:
+<<<<<<< HEAD
     - "&6You got &d$20 &6for killing a cop."
     - "&6You have been rewarded with &d1 &6apple."
   Level2:
@@ -159,6 +164,21 @@ Rewards_KillCops:
     - "&6You have been rewarded with &d4 &6iron."
   Level5:
     - "&6You got &d$60 &6for killing a cop."
+=======
+    - "&6You got &d$20 &6for killing the wanted player."
+    - "&6You have been rewarded with &d1 &6apple."
+  Level2:
+    - "&6You got &d30 &6for killing the wanted player."
+    - "&6You have been rewarded with &d2 &6sand."
+  Level3:
+    - "&6You got &d$40 &6for killing the wanted player."
+    - "&6You have been rewarded with &d3 &6dirt."
+  Level4:
+    - "&6You got &d$50 &6for killing the wanted player."
+    - "&6You have been rewarded with &d4 &6iron."
+  Level5:
+    - "&6You got &d$60 &6for killing the wanted player."
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
     - "&6You have been rewarded with &d5 &6gold."
 
 #***************************************************#

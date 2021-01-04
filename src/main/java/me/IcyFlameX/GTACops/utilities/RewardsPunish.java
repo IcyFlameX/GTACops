@@ -21,7 +21,11 @@ public class RewardsPunish {
         String from = "Rewards_KillPlayer";
         if (!type) {
             category = "Enable_Rewards_Cops";
+<<<<<<< HEAD
             from = "Rewards_KillCops";
+=======
+            from = "Rewards_KillPlayer";
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
             dead = toBeRewarded;
         }
         if (plugin.getConfigFileManager().getConfigFileConfig().getBoolean(category)) {

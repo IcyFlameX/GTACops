@@ -1,7 +1,11 @@
 main: me.IcyFlameX.GTACops.main.Main
 author: IcyFlameX
 name: GTACops
+<<<<<<< HEAD
 version: "2.3.3"
+=======
+version: "2.3.2"
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
 api-version: "1.13"
 softdepend: [Vault,PlaceholderAPI]
 commands:

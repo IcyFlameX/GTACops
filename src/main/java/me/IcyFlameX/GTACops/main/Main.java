@@ -4,7 +4,10 @@ import me.IcyFlameX.GTACops.api.MetricsLite;
 import me.IcyFlameX.GTACops.dataManager.ConfigFileManager;
 import me.IcyFlameX.GTACops.dependency.PAPIDependency;
 import me.IcyFlameX.GTACops.dependency.VaultDependency;
+<<<<<<< HEAD
 import me.IcyFlameX.GTACops.listenerPackage.CrackShotListener;
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
 import me.IcyFlameX.GTACops.listenerPackage.ListenerClass;
 import me.IcyFlameX.GTACops.mechanics.CopsFeature;
 import me.IcyFlameX.GTACops.utilities.CommandManager;
@@ -13,7 +16,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+<<<<<<< HEAD
 import java.util.Objects;
+=======
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin implements Listener {
@@ -28,9 +34,14 @@ public final class Main extends JavaPlugin implements Listener {
         if (checkDependency()) {
             checkUpdate();
             setConfigFileManager(new ConfigFileManager(this));
+<<<<<<< HEAD
             Objects.requireNonNull(this.getCommand("gcops")).setExecutor(new CommandManager(this));
             this.getServer().getPluginManager().registerEvents(new ListenerClass(this), this);
             this.getServer().getPluginManager().registerEvents(new CrackShotListener(this),this);
+=======
+            this.getCommand("gcops").setExecutor(new CommandManager(this));
+            this.getServer().getPluginManager().registerEvents(new ListenerClass(this), this);
+>>>>>>> e4e1f09b48efeebed0531a9b67c3f0e727b091dd
             super.onEnable();
         }
 
